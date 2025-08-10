@@ -4,590 +4,362 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cittadinanza Digitale Sicura • IIS Mendel</title>
-  <meta name="description" content="Percorso completo di cittadinanza digitale per docenti e studenti: phishing, password, social engineering, cyberbullismo, privacy/GDPR, sicurezza in classe e fake news.">
+  <meta name="description" content="Percorso completo di cittadinanza digitale per docenti e studenti: phishing, password sicure, social engineering, sicurezza in classe, fake news." />
   <style>
     :root{
-      --bg:#0b1020;          /* sfondo pagina */
-      --panel:#121936;       /* pannelli/sezioni */
-      --ink:#e8ecf8;         /* testo principale */
-      --muted:#a8b1c7;       /* testo secondario */
-      --accent:#84cc16;      /* lime */
-      --accent-2:#22d3ee;    /* cyan */
-      --danger:#ef4444;      /* rosso */
-      --warn:#f59e0b;        /* arancio */
-      --ok:#10b981;          /* verde */
-      --card:#0f172a;        /* box scuri */
-      --border:rgba(255,255,255,.12);
-      --chip:rgba(255,255,255,.06);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius:18px;
-      --sidebar: 290px;
-      scroll-behavior:smooth;
+      --ink:#0b1020; --muted:#4b5563; --bg:#f5f7fb; --card:#ffffff;
+      --brand:#2c5aa0; --brand-2:#16a34a; --accent:#f39c12;
+      --radius:14px; --shadow:0 8px 24px rgba(0,0,0,.08);
+      --border:#e5e7eb;
     }
-
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;
-      background:radial-gradient(1200px 600px at 10% -10%, #1c2a6b33, transparent 50%),
-                 radial-gradient(1200px 600px at 110% 10%, #0ea5e933, transparent 50%),
-                 var(--bg);
-      color:var(--ink);
-    }
-    a{color:var(--accent-2);text-decoration:none}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+    a{color:var(--brand);text-decoration:none}
     a:hover{text-decoration:underline}
-    img{max-width:100%}
-
-    /* Layout */
-    .wrap{max-width:1200px;margin:0 auto;padding:18px}
-    .layout{
-      display:grid;
-      grid-template-columns: var(--sidebar) 1fr;
-      min-height:100dvh;
-    }
-
-    /* Sidebar */
-    .sidebar{
-      position:sticky; top:0; align-self:start;
-      height:100dvh; overflow:auto;
-      padding:18px; border-right:1px solid var(--border);
-      background:linear-gradient(180deg,#0d142f, #0b1020);
-    }
-    .brand{
-      display:flex; gap:12px; align-items:center; margin-bottom:12px;
-    }
-    .brand .logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#0b1020; font-weight:900}
-    .brand h1{font-size:16px;margin:0;line-height:1.25}
-    .brand small{color:var(--muted)}
-    .open-full{
-      display:block; text-align:center; font-weight:800;
-      margin:14px 0 10px 0; padding:10px 14px; border-radius:10px;
-      color:#0b1020; background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      box-shadow:var(--shadow); border:0;
-    }
-    .open-full:hover{filter:brightness(1.05); text-decoration:none}
-    nav{margin-top:10px; display:flex; flex-direction:column; gap:6px}
-    .nav-link{
-      padding:10px 12px; border-radius:10px; color:var(--ink);
-      background:transparent; border:1px solid transparent; display:flex; gap:10px; align-items:center;
-    }
-    .nav-link:hover{background:var(--chip); text-decoration:none}
-    .nav-link.active{background:var(--chip); border-color:var(--border)}
-    .nav-link .dot{width:8px;height:8px;border-radius:999px;background:var(--accent-2);opacity:.9}
-    .hint{color:var(--muted); font-size:12px; margin-top:12px}
-
-    /* Mobile header + drawer */
-    .topbar{
-      display:none; position:sticky; top:0; z-index:50;
-      background:color-mix(in oklab, var(--bg) 90%, transparent);
-      backdrop-filter:saturate(180%) blur(8px);
-      border-bottom:1px solid var(--border);
-    }
-    .topbar .inner{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 16px}
-    .menu-btn{border:1px solid var(--border); background:var(--chip); color:var(--ink); border-radius:10px; padding:8px 10px; font-weight:700}
-
-    /* Main content */
-    main{padding:24px}
-    section{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); margin-bottom:16px}
-    .section-head{display:flex; align-items:center; gap:12px; margin-bottom:8px}
-    .section-head .badge{padding:6px 10px;border-radius:999px; font-size:12px; border:1px solid var(--border); color:var(--muted)}
-    .kicker{color:var(--muted); font-size:14px; margin:4px 0 12px 0}
-    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-    .card{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px}
-    .card h4{margin:0 0 6px 0}
-    .tools{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-    .tool{background:var(--card); border:1px dashed color-mix(in oklab, var(--border) 70%, transparent); border-radius:12px; padding:12px}
-    .tool .head{display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:6px}
-    .tool .head a{display:inline-block; padding:6px 10px; border-radius:8px; background:var(--chip); color:var(--ink); font-weight:700}
-    .ok{color:var(--ok)} .warn{color:var(--warn)} .danger{color:var(--danger)}
-
-    /* Lists speciali */
-    .steps{list-style:none; padding:0; margin:0; counter-reset:step}
-    .steps li{position:relative; padding:12px 12px 12px 48px; background:var(--card); border:1px solid var(--border); border-radius:12px; margin-bottom:8px}
-    .steps li::before{
-      content:counter(step); counter-increment:step; position:absolute; left:12px; top:50%; transform:translateY(-50%);
-      width:26px;height:26px;border-radius:50%; display:grid;place-items:center; font-weight:800; font-size:12px;
-      background:linear-gradient(180deg,var(--accent),var(--accent-2)); color:#0b1020;
-    }
-    .oklist{list-style:none; padding:10px 12px; background:#052a1733; border:1px solid #10b98133; border-radius:12px}
-    .oklist li{padding:8px 0 8px 32px; position:relative}
-    .oklist li::before{content:"OK"; position:absolute; left:0; top:8px; background:var(--ok); color:#0b1020; border-radius:999px; font-size:11px; font-weight:900; padding:3px 6px}
-
-    /* Media embed */
-    .embed{position:relative; padding-top:56.25%; border-radius:14px; overflow:hidden; border:1px solid var(--border); background:#000}
-    .embed iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
-
-    /* Footer */
-    footer{color:var(--muted); font-size:13px; padding:22px; text-align:center}
-
-    /* Responsive */
-    @media (max-width:1100px){ .grid, .tools{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:900px){
-      .layout{grid-template-columns:1fr}
-      .sidebar{display:none}
-      .topbar{display:block}
-      .grid, .tools{grid-template-columns:1fr}
-    }
-
-    /* Back to top */
-    .totop{position:fixed; right:14px; bottom:14px; padding:10px 12px; background:var(--chip); border:1px solid var(--border); color:var(--ink);
-      border-radius:999px; display:none; font-weight:800}
-    .totop.show{display:inline-flex}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px}
+    header{background:linear-gradient(135deg,var(--brand),#1e3d6f);color:#fff}
+    .hero{padding:42px 20px}
+    .hero h1{margin:0 0 8px 0;font-size:clamp(28px,4.5vw,40px)}
+    .hero p{margin:0 0 16px 0;opacity:.95}
+    .school{background:rgba(255,255,255,.12);display:inline-block;padding:10px 14px;border-radius:999px;font-size:14px}
+    .top-actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;border-radius:10px;padding:10px 14px;font-weight:700;box-shadow:var(--shadow)}
+    .btn.primary{background:linear-gradient(90deg,#2563eb,var(--brand-2));color:#fff}
+    .btn.ghost{background:#fff;color:var(--brand)}
+    nav{background:#fff;border-bottom:1px solid var(--border)}
+    .tabs{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:10px 20px}
+    .tabs a{padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;font-weight:600;font-size:14px}
+    .tabs a:hover{background:#f3f4f6}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    .kicker{color:var(--muted);font-size:14px}
+    .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef2ff;color:#3730a3;border:1px solid #c7d2fe;font-weight:700;font-size:12px}
+    .module{overflow:hidden;padding:0}
+    .module .head{color:#fff;padding:24px 18px}
+    .module .head h3{margin:0 0 4px 0}
+    .module .head small{opacity:.95}
+    .module .body{padding:18px}
+    .pill{display:inline-block;padding:2px 8px;border:1px solid var(--border);border-radius:999px;font-size:12px;color:var(--muted)}
+    .cta-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+    @media (max-width:800px){.cta-list{grid-template-columns:1fr}}
+    .cta{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px 12px;font-size:14px}
+    /* colori sezioni */
+    .ph{background:#e74c3c} .pw{background:#3498db} .se{background:#9b59b6}
+    .cl{background:#27ae60} .fn{background:#f39c12}
+    /* liste “step” e “ok” */
+    .steps{list-style:none;padding:0;margin:0;counter-reset:s}
+    .steps li{background:#f8f9fa;border:1px solid var(--border);border-radius:10px;padding:12px 12px 12px 46px;position:relative;margin:10px 0}
+    .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:10px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font-weight:800}
+    .oks{list-style:none;margin:0;padding:0}
+    .oks li{padding:10px 10px 10px 40px;border-bottom:1px solid #eef2f7;position:relative}
+    .oks li:last-child{border-bottom:none}
+    .oks li::before{content:"OK";position:absolute;left:10px;top:10px;background:#16a34a;color:#fff;border-radius:10px;font-size:11px;padding:2px 6px;font-weight:800}
+    footer{color:var(--muted);text-align:center;padding:24px}
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="inner">
-      <strong>IIS Mendel • Cittadinanza Digitale</strong>
-      <button id="openMenu" class="menu-btn" aria-controls="drawer" aria-expanded="false">☰ Menu</button>
+  <!-- HERO -->
+  <header>
+    <div class="wrap hero">
+      <h1>Cittadinanza Digitale Sicura</h1>
+      <p>Percorso pratico per docenti e studenti: riconoscere truffe online, proteggere gli account, usare il web in modo responsabile.</p>
+      <div class="school"><strong>IIS Mendel • Villa Cortese (MI)</strong> — Progetto “Buone pratiche” PNRR “Scuola Futura”</div>
+      <div class="top-actions">
+        <a class="btn primary" href="https://massicrespi.github.io/Cybersicurezza_IIS-MENDEL/" target="_blank" rel="noopener">↗ Apri a tutto schermo</a>
+        <a class="btn ghost" href="#obiettivi">🎯 Obiettivi</a>
+      </div>
     </div>
-  </div>
+  </header>
 
-  <div class="layout">
-    <!-- Sidebar -->
-    <aside class="sidebar" id="drawer" aria-label="Navigazione laterale">
-      <div class="brand">
-        <div class="logo">CD</div>
-        <div>
-          <h1>Cittadinanza Digitale Sicura</h1>
-          <small>IIS Mendel – Progetto “Buone Pratiche” PNRR</small>
+  <!-- NAV -->
+  <nav aria-label="Navigazione sezioni">
+    <div class="tabs wrap">
+      <a href="#home">Home</a>
+      <a href="#phishing">Phishing</a>
+      <a href="#password">Password</a>
+      <a href="#social">Social Engineering</a>
+      <a href="#classe">Sicurezza in classe</a>
+      <a href="#news">Fake News</a>
+      <a href="#risorse">Risorse utili</a>
+    </div>
+  </nav>
+
+  <main class="wrap" id="home" tabindex="-1">
+    <!-- INTRO + OBIETTIVI -->
+    <section class="card">
+      <p class="kicker">Benvenuti! Questa webapp è pensata per attività in classe, collegi docenti e autoformazione.</p>
+      <h2 id="obiettivi">🎯 Obiettivi del percorso</h2>
+      <div class="cta-list" aria-label="Elenco obiettivi">
+        <div class="cta"><strong>Riconoscere il phishing</strong> (email/SMS/WhatsApp, siti clone, allegati pericolosi).</div>
+        <div class="cta"><strong>Proteggere gli account</strong> con password robuste e <em>autenticazione a due fattori</em>.</div>
+        <div class="cta"><strong>Ridurre l’ingegneria sociale</strong>: tecniche tipiche e contromisure.</div>
+        <div class="cta"><strong>Didattica sicura</strong>: policy, privacy, gestione dispositivi (BYOD) a scuola.</div>
+        <div class="cta"><strong>Verificare le notizie</strong>: metodo e strumenti anti-disinformazione.</div>
+        <div class="cta"><strong>Agire correttamente in caso di incidente</strong>: cosa fare/subito, a chi segnalare.</div>
+      </div>
+    </section>
+
+    <!-- MODULI IN EVIDENZA -->
+    <section aria-label="Moduli" class="grid">
+      <article class="card module">
+        <div class="head ph">
+          <h3>Phishing</h3><small>Email trappola & link fake</small>
         </div>
+        <div class="body">
+          <p>Impara a riconoscere segnali d’allarme e a verificare i link prima di cliccare.</p>
+          <a class="pill" href="#phishing">Apri modulo →</a>
+        </div>
+      </article>
+
+      <article class="card module">
+        <div class="head pw">
+          <h3>Password Sicure</h3><small>Autenticazione forte</small>
+        </div>
+        <div class="body">
+          <p>Costruisci password robuste e attiva la 2FA ovunque è disponibile.</p>
+          <a class="pill" href="#password">Apri modulo →</a>
+        </div>
+      </article>
+
+      <article class="card module">
+        <div class="head se">
+          <h3>Social Engineering</h3><small>Manipolazione & inganno</small>
+        </div>
+        <div class="body">
+          <p>Comprendi come veniamo convinti a compiere azioni rischiose.</p>
+          <a class="pill" href="#social">Apri modulo →</a>
+        </div>
+      </article>
+
+      <article class="card module">
+        <div class="head cl">
+          <h3>Sicurezza in Classe</h3><small>Policy & strumenti</small>
+        </div>
+        <div class="body">
+          <p>Buone pratiche per una didattica digitale conforme e protetta.</p>
+          <a class="pill" href="#classe">Apri modulo →</a>
+        </div>
+      </article>
+
+      <article class="card module">
+        <div class="head fn">
+          <h3>Fake News</h3><small>Verifica dell’informazione</small>
+        </div>
+        <div class="body">
+          <p>Metodo e strumenti per smascherare contenuti fuorvianti.</p>
+          <a class="pill" href="#news">Apri modulo →</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- MODULO PHISHING -->
+    <section id="phishing" class="card" aria-labelledby="phishing-title">
+      <div class="badge">Modulo • Phishing</div>
+      <h2 id="phishing-title">Phishing – Email trappola</h2>
+      <p class="kicker">Il phishing è la tecnica più diffusa per rubare credenziali o installare malware.</p>
+
+      <h3>Come funziona</h3>
+      <ul class="steps">
+        <li>Email o messaggi imitano servizi reali (banca, scuola, corrieri).</li>
+        <li>Link a siti clone identici agli originali.</li>
+        <li>L’utente inserisce credenziali/dati sensibili.</li>
+        <li>I dati sono usati per accessi illeciti o rivenduti.</li>
+      </ul>
+
+      <h3>Come proteggersi</h3>
+      <ul class="oks">
+        <li>Verifica il mittente tramite canali ufficiali; diffida dell’urgenza.</li>
+        <li>Non cliccare: digita l’URL a mano o usa i preferiti.</li>
+        <li>Controlla certificato HTTPS e dominio esatto.</li>
+        <li>Attiva la 2FA sugli account principali.</li>
+      </ul>
+
+      <h3>Esempio tipico</h3>
+      <div class="card">
+        <strong>Phishing bancario:</strong> “Verifica urgente del conto, clicca qui”.  
+        <div class="kicker">Segnali: urgenza/minacce, link mascherati, richiesta PIN/password complete.</div>
       </div>
 
-      <!-- Pulsante apri a tutto schermo -->
-      <a class="open-full" id="openFullBtn" href="https://massicrespi.github.io/Cybersicurezza_IIS-MENDEL/" target="_blank" rel="noopener">
-        Apri la webapp a tutto schermo ↗
-      </a>
+      <h3>Strumenti utili</h3>
+      <div class="grid">
+        <div class="card"><strong>Google Phishing Quiz</strong><br><a href="https://phishingquiz.withgoogle.com/" target="_blank" rel="noopener">Prova ↗</a></div>
+        <div class="card"><strong>VirusTotal</strong><br><a href="https://www.virustotal.com/" target="_blank" rel="noopener">Analizza URL ↗</a></div>
+        <div class="card"><strong>PhishTank</strong><br><a href="https://www.phishtank.com/" target="_blank" rel="noopener">Verifica ↗</a></div>
+        <div class="card"><strong>Trend Micro Site Safety</strong><br><a href="https://global.sitesafety.trendmicro.com/" target="_blank" rel="noopener">Controlla ↗</a></div>
+        <div class="card"><strong>Segnala in Outlook/365</strong><br><a href="https://learn.microsoft.com/microsoft-365/security/office-365-security/enable-the-report-message-add-in" target="_blank" rel="noopener">Add-in ↗</a></div>
+        <div class="card"><strong>Poste Italiane – Sicurezza</strong><br><a href="https://www.posteitaliane.it/it/sicurezza.html" target="_blank" rel="noopener">Guida ↗</a></div>
+      </div>
+    </section>
 
-      <!-- Indice -->
-      <nav id="toc">
-        <a class="nav-link" href="#intro"><span class="dot"></span>Introduzione</a>
-        <a class="nav-link" href="#phishing"><span class="dot"></span>Phishing</a>
-        <a class="nav-link" href="#password"><span class="dot"></span>Password & 2FA</a>
-        <a class="nav-link" href="#social"><span class="dot"></span>Social Engineering</a>
-        <a class="nav-link" href="#cyberbullismo"><span class="dot"></span>Cyberbullismo & Benessere</a>
-        <a class="nav-link" href="#privacy"><span class="dot"></span>Normativa & Privacy (GDPR)</a>
-        <a class="nav-link" href="#classe"><span class="dot"></span>Sicurezza in Classe</a>
-        <a class="nav-link" href="#news"><span class="dot"></span>Fake News</a>
-      </nav>
+    <!-- MODULO PASSWORD -->
+    <section id="password" class="card" aria-labelledby="password-title">
+      <div class="badge">Modulo • Password & 2FA</div>
+      <h2 id="password-title">Password sicure & Autenticazione</h2>
+      <p class="kicker">Password robuste + 2FA = miglior difesa contro accessi non autorizzati.</p>
 
-      <div class="hint">Suggerimento: premi <strong>Ctrl/Cmd + F</strong> per cercare nella pagina.</div>
-    </aside>
+      <h3>Da sapere</h3>
+      <ul class="steps">
+        <li>Le password comuni si craccano in pochi secondi.</li>
+        <li>Il riuso tra servizi moltiplica il rischio.</li>
+        <li>La 2FA aggiunge una barriera anche se la password trapela.</li>
+        <li>I password manager creano e memorizzano chiavi uniche e lunghe.</li>
+      </ul>
 
-    <!-- Contenuti -->
-    <main>
-      <!-- Introduzione -->
-      <section id="intro" class="wrap">
-        <div class="section-head">
-          <h2 style="margin:0">Benvenuti 👋</h2>
-          <span class="badge">Percorso scuola 2025</span>
+      <h3>Buone pratiche</h3>
+      <ul class="oks">
+        <li>Lunghezza ≥ 12–16 caratteri con lettere, numeri e simboli.</li>
+        <li>Una password diversa per ogni servizio.</li>
+        <li>Attiva 2FA (app di autenticazione o chiave fisica).</li>
+        <li>Usa un password manager affidabile.</li>
+      </ul>
+
+      <h3>Strumenti consigliati</h3>
+      <div class="grid">
+        <div class="card"><strong>Bitwarden</strong><br><a href="https://bitwarden.com/" target="_blank" rel="noopener">Scarica ↗</a></div>
+        <div class="card"><strong>1Password</strong><br><a href="https://1password.com/" target="_blank" rel="noopener">Prova ↗</a></div>
+        <div class="card"><strong>Google Authenticator</strong><br><a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" rel="noopener">Installa ↗</a></div>
+        <div class="card"><strong>Authy</strong><br><a href="https://authy.com/" target="_blank" rel="noopener">Scarica ↗</a></div>
+        <div class="card"><strong>Have I Been Pwned</strong><br><a href="https://haveibeenpwned.com/" target="_blank" rel="noopener">Controlla email ↗</a></div>
+        <div class="card"><strong>Password Strength</strong><br><a href="https://www.security.org/how-secure-is-my-password/" target="_blank" rel="noopener">Testa ↗</a></div>
+      </div>
+    </section>
+
+    <!-- MODULO SOCIAL ENGINEERING -->
+    <section id="social" class="card" aria-labelledby="social-title">
+      <div class="badge">Modulo • Social Engineering</div>
+      <h2 id="social-title">Ingegneria sociale</h2>
+      <p class="kicker">Manipolazione psicologica: fiducia, autorità, urgenza e paura.</p>
+
+      <h3>Pattern tipici</h3>
+      <ul class="steps">
+        <li>Telefonate “IT” che chiedono password o codici (vishing).</li>
+        <li>Messaggi WhatsApp del “dirigente” con richieste strane.</li>
+        <li>Finti corrieri o provider che chiedono pagamenti urgenti.</li>
+        <li>Condivisione eccessiva di info sui social usate per profilarti.</li>
+      </ul>
+
+      <h3>Contromisure</h3>
+      <ul class="oks">
+        <li>Verifica identità via canali indipendenti prima di agire.</li>
+        <li>Prenditi tempo: l’urgenza è una tattica.</li>
+        <li>Non fornire mai password/codici OTP a nessuno.</li>
+        <li>Limita info pubbliche sui social/profili.</li>
+      </ul>
+
+      <h3>Risorse</h3>
+      <div class="grid">
+        <div class="card"><strong>Social Engineer Toolkit</strong><br><a href="https://www.social-engineer.org/" target="_blank" rel="noopener">Scopri ↗</a></div>
+        <div class="card"><strong>KnowBe4 – Phishing test</strong><br><a href="https://www.knowbe4.com/free-phishing-test" target="_blank" rel="noopener">Test ↗</a></div>
+        <div class="card"><strong>SANS Security Awareness</strong><br><a href="https://www.sans.org/security-awareness-training/" target="_blank" rel="noopener">Formazione ↗</a></div>
+        <div class="card"><strong>Privacy Checkup</strong><br><a href="https://privacycheckup.com/" target="_blank" rel="noopener">Controlla ↗</a></div>
+      </div>
+    </section>
+
+    <!-- MODULO SICUREZZA IN CLASSE -->
+    <section id="classe" class="card" aria-labelledby="classe-title">
+      <div class="badge">Modulo • Sicurezza in classe</div>
+      <h2 id="classe-title">Didattica digitale sicura</h2>
+      <p class="kicker">Policy, piattaforme approvate, privacy studenti, gestione dispositivi.</p>
+
+      <h3>Checklist rapida</h3>
+      <ul class="oks">
+        <li>Usa solo piattaforme approvate dalla scuola (Workspace/M365).</li>
+        <li>Definisci policy d’uso chiare, condivise e applicate.</li>
+        <li>Proteggi i dati in base al GDPR; evita scambi via email non protette.</li>
+        <li>Forma docenti e studenti sulle procedure minime di sicurezza.</li>
+      </ul>
+
+      <h3>Strumenti e riferimenti</h3>
+      <div class="grid">
+        <div class="card"><strong>Google Workspace for Education</strong><br><a href="https://edu.google.com/workspace-for-education/" target="_blank" rel="noopener">Info ↗</a></div>
+        <div class="card"><strong>Microsoft 365 Education</strong><br><a href="https://www.microsoft.com/it-it/education/products/office" target="_blank" rel="noopener">Scopri ↗</a></div>
+        <div class="card"><strong>Garante Privacy • Scuola</strong><br><a href="https://www.garanteprivacy.it/scuola" target="_blank" rel="noopener">Linee guida ↗</a></div>
+        <div class="card"><strong>Common Sense Education</strong><br><a href="https://www.commonsensemedia.org/educators" target="_blank" rel="noopener">Risorse ↗</a></div>
+      </div>
+    </section>
+
+    <!-- MODULO FAKE NEWS -->
+    <section id="news" class="card" aria-labelledby="news-title">
+      <div class="badge">Modulo • Fact-checking</div>
+      <h2 id="news-title">Fake news & Disinformazione</h2>
+      <p class="kicker">Metodo, cross-check delle fonti, verifica immagini e date.</p>
+
+      <h3>Come funziona la disinformazione</h3>
+      <ul class="steps">
+        <li>Fa leva su emozioni forti e pregiudizi di conferma.</li>
+        <li>Si diffonde via social con bot e account falsi.</li>
+        <li>Spesso è motivata da profitto o influenza politica.</li>
+      </ul>
+
+      <h3>Difese pratiche</h3>
+      <ul class="oks">
+        <li>Verifica sempre la fonte e cerca conferme multiple.</li>
+        <li>Controlla data, luogo, contesto e versione originale.</li>
+        <li>Usa strumenti di ricerca inversa per immagini/video.</li>
+        <li>Pensaci due volte prima di condividere.</li>
+      </ul>
+
+      <h3>Strumenti utili</h3>
+      <div class="grid">
+        <div class="card"><strong>Bufale.net</strong><br><a href="https://www.bufale.net/" target="_blank" rel="noopener">Verifica ↗</a></div>
+        <div class="card"><strong>FactCheck.org</strong><br><a href="https://www.factcheck.org/" target="_blank" rel="noopener">Controlla ↗</a></div>
+        <div class="card"><strong>Snopes</strong><br><a href="https://www.snopes.com/" target="_blank" rel="noopener">Ricerca ↗</a></div>
+        <div class="card"><strong>TinEye (reverse image)</strong><br><a href="https://tineye.com/" target="_blank" rel="noopener">Cerca ↗</a></div>
+        <div class="card"><strong>Media Bias / Fact Check</strong><br><a href="https://mediabiasfactcheck.com/" target="_blank" rel="noopener">Analizza ↗</a></div>
+        <div class="card"><strong>Poynter IFCN</strong><br><a href="https://www.poynter.org/ifcn/" target="_blank" rel="noopener">Network ↗</a></div>
+      </div>
+    </section>
+
+    <!-- RISORSE EXTRA -->
+    <section id="risorse" class="card" aria-labelledby="risorse-title">
+      <div class="badge">Toolkit</div>
+      <h2 id="risorse-title">Risorse utili per la classe</h2>
+      <div class="grid">
+        <div class="card">
+          <strong>Modello policy digitali</strong>
+          <p class="kicker">Bozza per regole d’uso dispositivi/servizi.</p>
+          <ul class="oks">
+            <li>Ruoli, responsabilità, escalation incidenti.</li>
+            <li>Uso account istituzionali e storage sicuro.</li>
+            <li>Consenso informato per immagini/registrazioni.</li>
+          </ul>
         </div>
-        <p class="kicker">Formazione completa per docenti e studenti dell’era digitale. Materiali pronti all’uso, esempi reali, strumenti testati. Tutti i link esterni si aprono in una nuova scheda.</p>
-
-        <div class="grid">
-          <div class="card">
-            <h4>Video introduttivo</h4>
-            <div class="embed">
-              <!-- Sostituisci l’URL con il tuo video YouTube o Drive -->
-              <iframe src="https://www.youtube.com/embed/_uQrJ0TkZlc" title="Introduzione alla cittadinanza digitale" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <p class="kicker">Suggerimento: carica il tuo video dell’istituto e sostituisci il link.</p>
-          </div>
-          <div class="card">
-            <h4>Infografica interattiva</h4>
-            <div class="embed" style="padding-top:70%">
-              <!-- Incolla qui l’embed di Canva/Genially oppure usa un’immagine -->
-              <iframe src="https://www.canva.com/design/DAFv1n3z0eA/view?embed" title="Infografica cittadinanza digitale" loading="lazy"></iframe>
-            </div>
-            <p class="kicker">Se il tuo CMS blocca embed esterni, metti un link testuale diretto sotto.</p>
-          </div>
-          <div class="card">
-            <h4>Obiettivi del percorso</h4>
-            <ul class="oklist">
-              <li>Padroneggiare le minacce comuni (phishing, social engineering, disinformazione).</li>
-              <li>Adottare buone pratiche: password solide, 2FA, igiene digitale.</li>
-              <li>Conoscere i riferimenti normativi (GDPR, Garante Privacy, policy scolastiche).</li>
-              <li>Promuovere benessere digitale e prevenzione del cyberbullismo.</li>
-            </ul>
-          </div>
+        <div class="card">
+          <strong>Pronto soccorso incidenti</strong>
+          <ul class="steps">
+            <li>Isola il dispositivo/utenza compromessa.</li>
+            <li>Cambia password + revoca sessioni.</li>
+            <li>Avvisa referente IT/dirigenza; raccogli evidenze.</li>
+            <li>Valuta notifica a Garante/privacy se necessario.</li>
+          </ul>
         </div>
-      </section>
-
-      <!-- PHISHING -->
-      <section id="phishing" class="wrap">
-        <div class="section-head">
-          <h2 style="margin:0">Phishing</h2>
-          <span class="badge">Email trappola</span>
+        <div class="card">
+          <strong>Checklist eventi/scadenze</strong>
+          <p class="kicker">Prima di pubblicare online materiali degli studenti.</p>
+          <ul class="oks">
+            <li>Consenso genitori/tutori se minori.</li>
+            <li>Escludi metadati e dati personali non necessari.</li>
+            <li>Usa canali ufficiali e accessi limitati.</li>
+          </ul>
         </div>
-        <p class="kicker">Email o messaggi che imitano servizi reali per rubare credenziali o installare malware.</p>
+      </div>
+    </section>
 
-        <div class="grid">
-          <div class="card">
-            <h4>Come funziona</h4>
-            <ol class="steps">
-              <li>Email/SMS imitano mittenti noti (banca, scuola, corrieri, INPS).</li>
-              <li>Link porta a sito clone quasi identico all’originale.</li>
-              <li>L’utente inserisce credenziali o dati personali.</li>
-              <li>I dati vengono usati per accessi non autorizzati o rivenduti.</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h4>Come proteggersi</h4>
-            <ul class="oklist">
-              <li>Controlla sempre mittente e dominio (non solo il nome visualizzato).</li>
-              <li>Non cliccare link sospetti: digita l’indirizzo a mano.</li>
-              <li>Verifica il lucchetto HTTPS e il certificato, ma non fidarti solo di quello.</li>
-              <li>Attiva la 2FA sugli account critici (posta, registro elettronico).</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>Strumenti utili</h4>
-            <div class="tools">
-              <div class="tool">
-                <div class="head"><strong>Google Phishing Quiz</strong><a href="https://phishingquiz.withgoogle.com/" target="_blank" rel="noopener">Apri ↗</a></div>
-                <p>Quiz interattivo per allenarsi su esempi reali.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>VirusTotal</strong><a href="https://www.virustotal.com/" target="_blank" rel="noopener">Scansiona ↗</a></div>
-                <p>Controllo di URL e allegati con decine di motori.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>Trend Micro Site Safety</strong><a href="https://global.sitesafety.trendmicro.com/" target="_blank" rel="noopener">Verifica ↗</a></div>
-                <p>Reputazione di siti e domini sospetti.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <!-- CONCLUSIONE -->
+    <section class="card">
+      <h3>Un approccio a 360°</h3>
+      <div class="grid">
+        <div class="card"><strong>Per i Docenti</strong><br>Formazione, casi reali, materiali pronti e protocolli.</div>
+        <div class="card"><strong>Per gli Studenti</strong><br>Apprendimento pratico, pensiero critico, cultura della sicurezza.</div>
+        <div class="card"><strong>Per la Scuola</strong><br>Conformità GDPR, riduzione rischi, risposta agli incidenti.</div>
+      </div>
+    </section>
+  </main>
 
-      <!-- PASSWORD -->
-      <section id="password" class="wrap">
-        <div class="section-head">
-          <h2 style="margin:0">Password & Autenticazione</h2>
-          <span class="badge">Account sicuri</span>
-        </div>
-        <p class="kicker">La 2FA blocca oltre il 90% degli accessi indesiderati. Password lunghe e univoche sono fondamentali.</p>
-
-        <div class="grid">
-          <div class="card">
-            <h4>Buone pratiche</h4>
-            <ul class="oklist">
-              <li>Minimo 12–14 caratteri, frase segreta facile da ricordare.</li>
-              <li>Una password diversa per ogni servizio importante.</li>
-              <li>Attiva 2FA (app OTP o chiave hardware) dove possibile.</li>
-              <li>Usa un password manager affidabile (Bitwarden, 1Password, KeePassXC).</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>Evita questi errori</h4>
-            <ol class="steps">
-              <li>Riutilizzare la stessa password su più siti.</li>
-              <li>Condividerla per email/WhatsApp o salvarla in chiaro.</li>
-              <li>Usare dati personali (date, nomi) o parole del dizionario.</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h4>Strumenti consigliati</h4>
-            <div class="tools">
-              <div class="tool">
-                <div class="head"><strong>Bitwarden</strong><a href="https://bitwarden.com/" target="_blank" rel="noopener">Sito ↗</a></div>
-                <p>Manager open source multipiattaforma.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>Have I Been Pwned</strong><a href="https://haveibeenpwned.com/" target="_blank" rel="noopener">Controlla ↗</a></div>
-                <p>Verifica violazioni legate alla tua email.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>Security.org Tester</strong><a href="https://www.security.org/how-secure-is-my-password/" target="_blank" rel="noopener">Prova ↗</a></div>
-                <p>Stima della robustezza di una password.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SOCIAL ENGINEERING -->
-      <section id="social" class="wrap">
-        <div class="section-head">
-          <h2 style="margin:0">Social Engineering</h2>
-          <span class="badge">Manipolazione</span>
-        </div>
-        <p class="kicker">Attacchi che sfruttano fiducia, autorità e urgenza per spingerti a fare qualcosa contro i tuoi interessi.</p>
-
-        <div class="grid">
-          <div class="card">
-            <h4>Scenari tipici</h4>
-            <ol class="steps">
-              <li>Vishing: finto tecnico IT che chiede la password “per un controllo”.</li>
-              <li>Smishing: SMS di corrieri/multe con link a pagamenti urgenti.</li>
-              <li>Pretexting: email del “dirigente” che chiede dati sensibili.</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h4>Come difendersi</h4>
-            <ul class="oklist">
-              <li>Verifica identità su canale alternativo (telefono ufficiale).</li>
-              <li>Prenditi tempo: gli attaccanti spingono alla fretta.</li>
-              <li>Non condividere OTP, password o link di recupero.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>Risorse</h4>
-            <div class="tools">
-              <div class="tool">
-                <div class="head"><strong>KnowBe4 – Phishing test</strong><a href="https://www.knowbe4.com/free-phishing-test" target="_blank" rel="noopener">Test ↗</a></div>
-                <p>Valuta la prontezza della scuola.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>SANS Awareness</strong><a href="https://www.sans.org/security-awareness-training/" target="_blank" rel="noopener">Formazione ↗</a></div>
-                <p>Programmi per il personale scolastico.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>Privacy Checkup</strong><a href="https://privacycheckup.com/" target="_blank" rel="noopener">Controlla ↗</a></div>
-                <p>Impostazioni di privacy sui social.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- CYBERBULLISMO & BENESSERE -->
-      <section id="cyberbullismo" class="wrap">
-        <div class="section-head">
-          <h2 style="margin:0">Cyberbullismo & Benessere Digitale</h2>
-          <span class="badge">Comportamenti online</span>
-        </div>
-        <p class="kicker">Prevenzione, segnalazione e supporto per la tutela in rete di studenti e docenti.</p>
-
-        <div class="grid">
-          <div class="card">
-            <h4>Segnali di allarme</h4>
-            <ol class="steps">
-              <li>Calo improvviso nel rendimento/partecipazione.</li>
-              <li>Isolamento, paura di usare dispositivi o partecipare alle chat.</li>
-              <li>Contenuti offensivi, meme denigratori, condivisione non consensuale.</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h4>Cosa fare subito</h4>
-            <ul class="oklist">
-              <li>Raccogli prove (screenshot, URL, orari); non rispondere alle provocazioni.</li>
-              <li>Blocca e segnala all’interno della piattaforma.</li>
-              <li>Rivolgiti al referente d’istituto e, se serve, alle autorità.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>Aiuto & risorse</h4>
-            <div class="tools">
-              <div class="tool">
-                <div class="head"><strong>Generazioni Connesse</strong><a href="https://www.generazioniconnesse.it/" target="_blank" rel="noopener">Portale ↗</a></div>
-                <p>Programma nazionale per le scuole su sicurezza online.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>Telefono Azzurro</strong><a href="https://azzurro.it/" target="_blank" rel="noopener">Supporto ↗</a></div>
-                <p>Ascolto e intervento per minori: 1.96.96 / 114.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>Benessere Digitale</strong><a href="https://wellbeing.google/" target="_blank" rel="noopener">Strumenti ↗</a></div>
-                <p>Gestione tempo schermo e notifiche.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- NORMATIVA & PRIVACY -->
-      <section id="privacy" class="wrap">
-        <div class="section-head">
-          <h2 style="margin:0">Normativa & Privacy (GDPR)</h2>
-          <span class="badge">Riferimenti</span>
-        </div>
-        <p class="kicker">Linee guida per un uso conforme nelle scuole: dati personali, consenso, policy e registro trattamenti.</p>
-
-        <div class="grid">
-          <div class="card">
-            <h4>Punti chiave a scuola</h4>
-            <ul class="oklist">
-              <li>Minimizzazione: raccogli solo i dati necessari per la didattica.</li>
-              <li>Trasparenza: informativa chiara a studenti e famiglie.</li>
-              <li>Sicurezza: controllo accessi, backup, cifratura dove possibile.</li>
-              <li>Data breach: procedure di segnalazione interne e al Garante.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>Modelli utili</h4>
-            <ol class="steps">
-              <li>Registro delle attività di trattamento dell’Istituto.</li>
-              <li>Informative per attività didattiche e uscite digitali.</li>
-              <li>Policy sull’uso dei dispositivi personali (BYOD) e piattaforme.</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h4>Approfondimenti</h4>
-            <div class="tools">
-              <div class="tool">
-                <div class="head"><strong>Garante Privacy – Scuola</strong><a href="https://www.garanteprivacy.it/scuola" target="_blank" rel="noopener">Linee guida ↗</a></div>
-                <p>Indicazioni ufficiali per istituzioni scolastiche.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>EDPB</strong><a href="https://edpb.europa.eu/edpb_it" target="_blank" rel="noopener">Comitato UE ↗</a></div>
-                <p>Raccomandazioni europee sull’applicazione del GDPR.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>AgID – Linee di indirizzo</strong><a href="https://www.agid.gov.it/" target="_blank" rel="noopener">AgID ↗</a></div>
-                <p>Standard e sicurezza per la PA, utili anche alle scuole.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SICUREZZA IN CLASSE -->
-      <section id="classe" class="wrap">
-        <div class="section-head">
-          <h2 style="margin:0">Sicurezza in Classe</h2>
-          <span class="badge">Ambiente digitale</span>
-        </div>
-        <p class="kicker">Policy chiare, strumenti approvati, formazione continua e controlli proporzionati.</p>
-
-        <div class="grid">
-          <div class="card">
-            <h4>Best practice</h4>
-            <ul class="oklist">
-              <li>Account individuali e ruoli differenziati (docenti/studenti/ATA).</li>
-              <li>Registro attività e condivisioni solo con gruppi della classe.</li>
-              <li>Software aggiornato (sistema, browser, estensioni).</li>
-              <li>Backup periodico dei materiali didattici.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>Esempio BYOD</h4>
-            <ol class="steps">
-              <li>Richiesta adesione famiglie + policy d’uso.</li>
-              <li>Rete separata per ospiti/studenti con filtraggio contenuti.</li>
-              <li>Formazione di base su sicurezza e privacy.</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h4>Strumenti scuola</h4>
-            <div class="tools">
-              <div class="tool">
-                <div class="head"><strong>Google Workspace Education</strong><a href="https://edu.google.com/workspace-for-education/" target="_blank" rel="noopener">Info ↗</a></div>
-                <p>Suite cloud con controlli amministrativi.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>Microsoft 365 Education</strong><a href="https://www.microsoft.com/it-it/education/products/office" target="_blank" rel="noopener">Scopri ↗</a></div>
-                <p>Gestione dispositivi e protezione dati.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>Garante – Sezione Scuola</strong><a href="https://www.garanteprivacy.it/scuola" target="_blank" rel="noopener">Linee guida ↗</a></div>
-                <p>Indicazioni su foto, video, piattaforme.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FAKE NEWS -->
-      <section id="news" class="wrap">
-        <div class="section-head">
-          <h2 style="margin:0">Fake News & Disinformazione</h2>
-          <span class="badge">Pensiero critico</span>
-        </div>
-        <p class="kicker">Riconoscere contenuti manipolati, verificare le fonti, evitare la condivisione impulsiva.</p>
-
-        <div class="grid">
-          <div class="card">
-            <h4>Come si propagano</h4>
-            <ol class="steps">
-              <li>Titoli emotivi e shock per catturare attenzione.</li>
-              <li>Uso di immagini fuori contesto o ritoccate.</li>
-              <li>Amplificazione tramite bot e gruppi chiusi.</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h4>Come difendersi</h4>
-            <ul class="oklist">
-              <li>Cerca conferme da più testate autorevoli.</li>
-              <li>Controlla la data e il contesto originale.</li>
-              <li>Fai reverse image search su foto dubbie.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>Strumenti di verifica</h4>
-            <div class="tools">
-              <div class="tool">
-                <div class="head"><strong>Bufale.net</strong><a href="https://www.bufale.net/" target="_blank" rel="noopener">Verifica ↗</a></div>
-                <p>Debunking in italiano.</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>Snopes</strong><a href="https://www.snopes.com/" target="_blank" rel="noopener">Ricerca ↗</a></div>
-                <p>Fact‑checking storico (EN).</p>
-              </div>
-              <div class="tool">
-                <div class="head"><strong>TinEye</strong><a href="https://tineye.com/" target="_blank" rel="noopener">Immagini ↗</a></div>
-                <p>Ricerca inversa immagini.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Torna su -->
-      <a href="#intro" class="totop" id="toTop" aria-label="Torna all’inizio">↑</a>
-
-      <!-- Footer -->
-      <footer>
-        IIS Mendel – Villa Cortese • Progetto “Buone Pratiche” PNRR “Scuola Futura”<br>
-        © 2025 • Tutti i diritti riservati • <a href="https://massicrespi.github.io/Cybersicurezza_IIS-MENDEL/" target="_blank" rel="noopener">Apri la webapp a tutto schermo</a>
-      </footer>
-    </main>
-  </div>
-
-  <noscript style="display:block; text-align:center; padding:12px; color:#fff; background:#b91c1c">
-    Attiva JavaScript per la migliore esperienza.
-  </noscript>
-
-  <script>
-    // ——— Configura qui il link "a tutto schermo" (GitHub Pages) ———
-    const FULL_URL = "https://massicrespi.github.io/Cybersicurezza_IIS-MENDEL/";
-    document.getElementById('openFullBtn').href = FULL_URL;
-
-    // Attiva link esterni in nuova scheda
-    for(const a of document.querySelectorAll('a[href^="http"]')){
-      if(!a.closest('.sidebar .nav-link')){ a.setAttribute('target','_blank'); a.setAttribute('rel','noopener'); }
-    }
-
-    // Evidenzia voce di menu attiva durante lo scroll
-    const links = [...document.querySelectorAll('.nav-link')];
-    const sections = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
-    const onScroll = () => {
-      let idx = 0, fromTop = window.scrollY + 120;
-      for(let i=0;i<sections.length;i++){
-        if(sections[i].offsetTop <= fromTop) idx = i;
-      }
-      links.forEach(l=>l.classList.remove('active'));
-      links[idx]?.classList.add('active');
-      document.getElementById('toTop').classList.toggle('show', window.scrollY > 400);
-    };
-    window.addEventListener('scroll', onScroll); onScroll();
-
-    // Mobile: apri/chiudi sidebar come drawer
-    const btn = document.getElementById('openMenu');
-    const drawer = document.getElementById('drawer');
-    if(btn){
-      btn.addEventListener('click', ()=>{
-        const open = drawer.style.display !== 'block';
-        drawer.style.display = open ? 'block' : 'none';
-        btn.setAttribute('aria-expanded', String(open));
-      });
-      // Chiudi il drawer quando clicco un link
-      document.querySelectorAll('#toc a').forEach(a => a.addEventListener('click', ()=> {
-        if(window.innerWidth <= 900){ drawer.style.display = 'none'; btn.setAttribute('aria-expanded','false'); }
-      }));
-    }
-  </script>
+  <footer>
+    © 2025 IIS Mendel – Villa Cortese • Progetto “Buone pratiche” PNRR “Scuola Futura”
+  </footer>
 </body>
 </html>

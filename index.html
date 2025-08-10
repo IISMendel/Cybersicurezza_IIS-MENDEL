@@ -1,1276 +1,725 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cittadinanza Digitale Sicura</title>
-    
-    <style>
-        /* Ultra-semplificato per CMS SCOLASTICO */
-        .cds-app {
-            font-family: Arial, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #f5f5f5;
-        }
-        
-        .cds-header {
-            background: #2c5aa0;
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-            margin-bottom: 30px;
-            border-radius: 8px;
-        }
-        
-        .cds-header h1 {
-            margin: 0 0 15px 0 !important;
-            font-size: 2.5em !important;
-            font-weight: bold !important;
-            color: white !important;
-        }
-        
-        .cds-header p {
-            margin: 0 0 20px 0 !important;
-            font-size: 1.2em !important;
-            opacity: 0.9 !important;
-            color: white !important;
-        }
-        
-        .cds-school-info {
-            background: rgba(255,255,255,0.1) !important;
-            padding: 15px !important;
-            border-radius: 5px !important;
-            font-size: 0.9em !important;
-            color: white !important;
-        }
-        
-        /* Regole specifiche per forzare il bianco contro il CMS */
-        .cds-header h1,
-        .cds-header .cds-header h1,
-        div.cds-header h1 {
-            color: white !important;
-        }
-        
-        .cds-header p,
-        .cds-header .cds-header p,
-        div.cds-header p {
-            color: white !important;
-        }
-        
-        .cds-header *,
-        .cds-header strong {
-            color: white !important;
-        }
-        
-        .cds-card {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .cds-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        
-        .cds-grid-item {
-            flex: 1;
-            min-width: 280px;
-        }
-        
-        .cds-grid-3 .cds-grid-item {
-            flex-basis: calc(33.333% - 14px);
-        }
-        
-        .cds-module {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.2s ease;
-            text-decoration: none;
-            display: block;
-            color: inherit;
-        }
-        
-        .cds-module:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-decoration: none;
-            color: inherit;
-        }
-        
-        .cds-module-header {
-            padding: 25px;
-            color: white;
-            text-align: center;
-        }
-        
-        .cds-module-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            font-weight: bold;
-            font-size: 24px;
-        }
-        
-        .cds-module-title {
-            margin: 0 0 8px 0;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        
-        .cds-module-subtitle {
-            margin: 0;
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-        
-        .cds-module-content {
-            padding: 25px;
-        }
-        
-        .cds-module-desc {
-            margin: 0 0 20px 0;
-            font-size: 0.9em;
-            color: #666;
-            line-height: 1.4;
-        }
-        
-        /* Colori moduli */
-        .cds-phishing { background: #e74c3c; }
-        .cds-password { background: #3498db; }
-        .cds-social { background: #9b59b6; }
-        .cds-classe { background: #27ae60; }
-        .cds-news { background: #f39c12; }
-        
-        .cds-btn {
-            display: inline-block;
-            padding: 12px 25px;
-            background: #2c5aa0;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: background 0.2s ease;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .cds-btn:hover {
-            background: #1e3d6f;
-            color: white;
-            text-decoration: none;
-        }
-        
-        .cds-btn:visited {
-            color: white;
-        }
-        
-        /* Sezione modulo */
-        .cds-module-section {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        
-        .cds-module-section-header {
-            padding: 30px;
-            color: white;
-            position: relative;
-        }
-        
-        .cds-back-link {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 0.9em;
-        }
-        
-        .cds-back-link:hover {
-            background: rgba(255,255,255,0.3);
-            color: white;
-            text-decoration: none;
-        }
-        
-        .cds-module-section-title {
-            margin: 0 0 10px 0;
-            font-size: 2em;
-            font-weight: bold;
-        }
-        
-        .cds-module-section-content {
-            padding: 30px;
-        }
-        
-        .cds-definition {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 25px;
-        }
-        
-        .cds-definition h3 {
-            margin: 0 0 10px 0;
-            color: #1976d2;
-            font-size: 1.2em;
-        }
-        
-        .cds-definition p {
-            margin: 0;
-            color: #1565c0;
-        }
-        
-        .cds-section {
-            margin-bottom: 30px;
-        }
-        
-        .cds-section h3 {
-            margin: 0 0 15px 0;
-            font-size: 1.3em;
-            font-weight: bold;
-        }
-        
-        .cds-step-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            counter-reset: step;
-        }
-        
-        .cds-step-list li {
-            background: #f8f9fa;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            padding-left: 50px;
-            position: relative;
-            counter-increment: step;
-        }
-        
-        .cds-step-list li::before {
-            content: counter(step);
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #ff9800;
-            color: white;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        .cds-prevention-list {
-            list-style: none;
-            padding: 20px;
-            margin: 0;
-            background: #f1f8e9;
-            border-radius: 5px;
-        }
-        
-        .cds-prevention-list li {
-            padding: 15px 0;
-            padding-left: 40px;
-            position: relative;
-            color: #2e7d32;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            border-bottom: 1px solid rgba(46, 125, 50, 0.1);
-        }
-        
-        .cds-prevention-list li:last-child {
-            border-bottom: none;
-        }
-        
-        .cds-prevention-list li::before {
-            content: "OK";
-            position: absolute;
-            left: 10px;
-            top: 15px;
-            background: #4caf50;
-            color: white !important;
-            font-weight: bold;
-            font-size: 11px;
-            padding: 4px 6px;
-            border-radius: 12px;
-            width: auto;
-            height: auto;
-            min-width: 24px;
-            text-align: center;
-            line-height: 1;
-        }
-        
-        .cds-example {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .cds-example h4 {
-            margin: 0 0 10px 0;
-            color: #9c27b0;
-            font-size: 1.1em;
-        }
-        
-        .cds-example p {
-            margin: 0 0 10px 0;
-        }
-        
-        .cds-red-flags {
-            background: #ffebee;
-            border: 1px solid #ffcdd2;
-            border-radius: 3px;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        
-        .cds-red-flags h5 {
-            margin: 0 0 8px 0;
-            color: #d32f2f;
-            font-size: 0.9em;
-        }
-        
-        .cds-red-flags ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-        
-        .cds-red-flags li {
-            color: #c62828;
-            font-size: 0.9em;
-        }
-        
-        /* Navigation */
-        .cds-nav {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .cds-nav a {
-            display: inline-block;
-            margin: 0 10px;
-            padding: 8px 15px;
-            background: #2c5aa0;
-            color: white;
-            text-decoration: none;
-            border-radius: 3px;
-            font-size: 0.9em;
-        }
-        
-        .cds-nav a:hover {
-            background: #1e3d6f;
-            color: white;
-            text-decoration: none;
-        }
-        
-        /* Strumenti grid */
-        .cds-tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .cds-tool-item {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 20px;
-            transition: all 0.2s ease;
-        }
-        
-        .cds-tool-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .cds-tool-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .cds-tool-title {
-            font-weight: bold;
-            color: #2c5aa0;
-            font-size: 1.1em;
-            margin: 0;
-        }
-        
-        .cds-tool-link {
-            background: #2c5aa0;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 0.9em;
-            font-weight: bold;
-        }
-        
-        .cds-tool-link:hover {
-            background: #1e3d6f;
-            color: white;
-            text-decoration: none;
-        }
-        
-        .cds-tool-desc {
-            margin: 0;
-            color: #666;
-            line-height: 1.4;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .cds-app {
-                padding: 15px;
-            }
-            
-            .cds-header {
-                padding: 25px 20px;
-            }
-            
-            .cds-header h1 {
-                font-size: 2em;
-            }
-            
-            .cds-grid-item {
-                min-width: 100%;
-                flex-basis: 100%;
-            }
-            
-            .cds-grid-3 .cds-grid-item {
-                flex-basis: 100%;
-            }
-            
-            .cds-tools-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .cds-text-center {
-            text-align: center;
-        }
-        
-        .cds-mb-2 {
-            margin-bottom: 20px;
-        }
-        
-        .cds-mb-3 {
-            margin-bottom: 30px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cittadinanza Digitale Sicura</title>
+
+  <style>
+    /* ====== Layout base (compatibile CMS scolastici) ==================== */
+    :root{
+      --brand:#2c5aa0;
+      --brand-dark:#1e3d6f;
+      --paper:#ffffff;
+      --bg:#f5f5f5;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --ok:#4caf50;
+      --warn:#ff9800;
+      --danger:#e74c3c;
+      --shadow:0 2px 8px rgba(0,0,0,.08);
+      --radius:10px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Arial,system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif;background:var(--bg);color:var(--ink)}
+
+    .cds-app{max-width:1200px;margin:0 auto;padding:20px}
+
+    /* ====== Button “Apri a tutto schermo” =============================== */
+    .cta-wrap{margin:10px 0 22px;text-align:center}
+    .cta{
+      display:inline-block;padding:12px 22px;border-radius:10px;
+      background:linear-gradient(90deg,#2563eb,#16a34a);
+      color:#fff;font-weight:700;text-decoration:none;box-shadow:var(--shadow);
+      transition:transform .08s ease, filter .2s ease;
+    }
+    .cta:hover{filter:brightness(1.05);text-decoration:none}
+    .cta:active{transform:translateY(1px)}
+
+    /* ====== Header ====================================================== */
+    .cds-header{
+      background:var(--brand);color:#fff;padding:34px 22px;margin-bottom:24px;border-radius:14px;
+      box-shadow:0 8px 24px rgba(44,90,160,.25)
+    }
+    .cds-header h1{margin:0 0 10px;font-size:2.4em;color:#fff}
+    .cds-header p{margin:0 0 16px;font-size:1.15em;opacity:.95;color:#fff}
+    .cds-school-info{
+      display:inline-block;background:rgba(255,255,255,.12);padding:12px 14px;border-radius:8px;font-size:.95em;color:#fff
+    }
+
+    /* ====== Navigazione (ancore interne) ================================ */
+    .cds-nav{background:#eef2ff;border:1px solid #e5e7eb;border-radius:10px;padding:12px;text-align:center;margin:0 0 18px}
+    .cds-nav a{
+      display:inline-block;margin:6px 6px;padding:8px 14px;border-radius:999px;background:#fff;
+      color:var(--brand);border:1px solid #e5e7eb;text-decoration:none;font-weight:600
+    }
+    .cds-nav a:hover{background:#f5f8ff;color:var(--brand-dark)}
+
+    /* ====== Card / griglie ============================================== */
+    .cds-card{background:var(--paper);border:1px solid #e5e7eb;border-radius:12px;padding:22px;margin-bottom:22px;box-shadow:var(--shadow)}
+    .cds-grid{display:flex;flex-wrap:wrap;gap:18px}
+    .cds-grid-item{flex:1;min-width:280px}
+    .cds-grid-3 .cds-grid-item{flex-basis:calc(33.333% - 12px)}
+
+    /* ====== Moduli vetrina ============================================== */
+    .cds-module{display:block;background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;color:inherit;text-decoration:none;transition:transform .15s ease, box-shadow .2s ease}
+    .cds-module:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.08);text-decoration:none;color:inherit}
+    .cds-module-header{padding:22px;color:#fff;text-align:center}
+    .cds-module-icon{width:64px;height:64px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.22);font-size:28px;font-weight:700}
+    .cds-module-title{margin:0 0 6px;font-weight:800}
+    .cds-module-subtitle{margin:0;opacity:.9}
+    .cds-module-content{padding:18px}
+    .cds-module-desc{margin:0 0 14px;color:#555;line-height:1.5}
+    .cds-btn{display:inline-block;width:100%;text-align:center;padding:12px 16px;border-radius:8px;background:var(--brand);color:#fff;font-weight:700;text-decoration:none;border:none}
+    .cds-btn:hover{background:var(--brand-dark);color:#fff}
+
+    .cds-phishing{background:#e74c3c}
+    .cds-password{background:#3498db}
+    .cds-social{background:#9b59b6}
+    .cds-classe{background:#27ae60}
+    .cds-news{background:#f39c12}
+    .cds-cyberbull{background:#ef476f}
+    .cds-privacy{background:#0ea5e9}
+
+    /* ====== Sezioni modulo ============================================== */
+    .cds-module-section{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:24px}
+    .cds-module-section-header{padding:26px;color:#fff;position:relative}
+    .cds-back-link{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.22);color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none}
+    .cds-back-link:hover{background:rgba(255,255,255,.3);color:#fff}
+    .cds-module-section-title{margin:0 0 8px;font-size:2rem}
+    .cds-module-section-content{padding:22px}
+
+    .cds-definition{background:#e3f2fd;border-left:4px solid #2196f3;padding:16px;border-radius:8px;margin-bottom:18px}
+    .cds-definition h3{margin:0 0 8px;color:#1976d2}
+    .cds-definition p{margin:0;color:#0b458a}
+
+    .cds-section{margin-bottom:22px}
+    .cds-section h3{margin:0 0 12px;font-size:1.25rem}
+
+    .cds-step-list{list-style:none;margin:0;padding:0;counter-reset:step}
+    .cds-step-list li{background:#f8f9fa;padding:14px;border-radius:8px;margin-bottom:10px;position:relative;padding-left:48px;counter-increment:step}
+    .cds-step-list li:before{
+      content:counter(step);position:absolute;left:12px;top:50%;transform:translateY(-50%);
+      width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--warn);color:#fff;font-weight:800
+    }
+
+    .cds-prevention-list{list-style:none;margin:0;background:#f1f8e9;border-radius:8px;padding:14px}
+    .cds-prevention-list li{position:relative;padding:12px 10px 12px 46px;border-bottom:1px solid rgba(46,125,50,.15);color:#2e7d32}
+    .cds-prevention-list li:last-child{border-bottom:none}
+    .cds-prevention-list li:before{
+      content:"OK";position:absolute;left:10px;top:11px;background:var(--ok);color:#fff;font-weight:800;
+      padding:4px 8px;border-radius:999px;font-size:.75rem
+    }
+
+    .cds-example{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:14px;margin-bottom:12px}
+    .cds-example h4{margin:0 0 8px;color:#9c27b0}
+
+    .cds-red-flags{background:#ffebee;border:1px solid #ffcdd2;border-radius:8px;padding:10px;margin-top:8px}
+    .cds-red-flags h5{margin:0 0 6px;color:#d32f2f}
+
+    /* ====== Strumenti ==================================================== */
+    .cds-tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+    .cds-tool-item{background:#f8f9fa;border:1px solid #dee2e6;border-radius:10px;padding:16px;transition:transform .15s ease, box-shadow .2s ease}
+    .cds-tool-item:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.08)}
+    .cds-tool-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .cds-tool-title{margin:0;color:var(--brand);font-weight:800}
+    .cds-tool-link{background:var(--brand);color:#fff;padding:6px 10px;border-radius:6px;text-decoration:none;font-weight:700}
+    .cds-tool-link:hover{background:var(--brand-dark);color:#fff}
+    .cds-tool-desc{margin:0;color:#555;line-height:1.45}
+
+    /* ====== Utility ====================================================== */
+    .cds-text-center{text-align:center}
+    .cds-mb-2{margin-bottom:16px}
+    .cds-mb-3{margin-bottom:24px}
+
+    /* ====== Responsive =================================================== */
+    @media (max-width:768px){
+      .cds-header h1{font-size:2rem}
+      .cds-grid-3 .cds-grid-item{flex-basis:100%}
+      .cds-module-section-title{font-size:1.6rem}
+    }
+  </style>
 </head>
 <body>
-    <div class="cds-app">
-        <!-- Header -->
-        <div class="cds-header">
-            <h1>Cittadinanza Digitale Sicura</h1>
-            <p>Formazione completa per docenti e studenti dell'era digitale</p>
-            <div class="cds-school-info">
-                <strong>IIS Mendel - Villa Cortese</strong><br>
-                Via Ferrazzi 15<br>
-                Progetto "Buone pratiche" PNRR "Scuola Futura"
-            </div>
-        </div>
+  <div class="cds-app" id="top">
 
-        <!-- Navigation -->
-        <div class="cds-nav">
-            <a href="#home">Home</a>
-            <a href="#phishing">Phishing</a>
-            <a href="#password">Password</a>
-            <a href="#social">Social Engineering</a>
-            <a href="#classe">Sicurezza Classe</a>
-            <a href="#news">Fake News</a>
-        </div>
-
-        <!-- HOME SECTION -->
-        <div id="home">
-            <!-- Moduli Principali -->
-            <div class="cds-card">
-                <h2 class="cds-text-center cds-mb-2" style="font-size: 2.2em; font-weight: bold; margin: 0 0 20px 0;">
-                    Moduli di Formazione Digitale
-                </h2>
-                <p class="cds-text-center cds-mb-3" style="font-size: 1.1em; color: #666; margin: 0 0 30px 0;">
-                    Ogni modulo sviluppa competenze specifiche per una cittadinanza digitale consapevole e sicura
-                </p>
-                
-                <div class="cds-grid cds-grid-3">
-                    <div class="cds-grid-item">
-                        <a href="#phishing" class="cds-module">
-                            <div class="cds-module-header cds-phishing">
-                                <div class="cds-module-icon">📧</div>
-                                <h3 class="cds-module-title">Phishing</h3>
-                                <p class="cds-module-subtitle">Riconoscere Email Trappola</p>
-                            </div>
-                            <div class="cds-module-content">
-                                <p class="cds-module-desc">
-                                    Impara a identificare e difenderti dalle email false che cercano di rubare le tue credenziali e informazioni personali.
-                                </p>
-                                <div class="cds-btn">Inizia Modulo</div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="cds-grid-item">
-                        <a href="#password" class="cds-module">
-                            <div class="cds-module-header cds-password">
-                                <div class="cds-module-icon">🔐</div>
-                                <h3 class="cds-module-title">Password Sicure</h3>
-                                <p class="cds-module-subtitle">Autenticazione Forte</p>
-                            </div>
-                            <div class="cds-module-content">
-                                <p class="cds-module-desc">
-                                    Scopri come creare password robuste e utilizzare l'autenticazione a due fattori per proteggere i tuoi account.
-                                </p>
-                                <div class="cds-btn">Inizia Modulo</div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="cds-grid-item">
-                        <a href="#social" class="cds-module">
-                            <div class="cds-module-header cds-social">
-                                <div class="cds-module-icon">🎭</div>
-                                <h3 class="cds-module-title">Social Engineering</h3>
-                                <p class="cds-module-subtitle">Tecniche di Manipolazione</p>
-                            </div>
-                            <div class="cds-module-content">
-                                <p class="cds-module-desc">
-                                    Comprendi le tecniche di manipolazione psicologica utilizzate dai cybercriminali per ingannare le persone.
-                                </p>
-                                <div class="cds-btn">Inizia Modulo</div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="cds-grid-item">
-                        <a href="#classe" class="cds-module">
-                            <div class="cds-module-header cds-classe">
-                                <div class="cds-module-icon">🏫</div>
-                                <h3 class="cds-module-title">Sicurezza in Classe</h3>
-                                <p class="cds-module-subtitle">Ambiente Digitale Protetto</p>
-                            </div>
-                            <div class="cds-module-content">
-                                <p class="cds-module-desc">
-                                    Implementa best practices per creare un ambiente di apprendimento digitale sicuro e conforme al GDPR.
-                                </p>
-                                <div class="cds-btn">Inizia Modulo</div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="cds-grid-item">
-                        <a href="#news" class="cds-module">
-                            <div class="cds-module-header cds-news">
-                                <div class="cds-module-icon">📰</div>
-                                <h3 class="cds-module-title">Fake News</h3>
-                                <p class="cds-module-subtitle">Verifica dell'Informazione</p>
-                            </div>
-                            <div class="cds-module-content">
-                                <p class="cds-module-desc">
-                                    Sviluppa pensiero critico per riconoscere disinformazione e fake news nell'era dei social media.
-                                </p>
-                                <div class="cds-btn">Inizia Modulo</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODULO PHISHING -->
-        <div id="phishing" class="cds-module-section">
-            <div class="cds-module-section-header cds-phishing">
-                <a href="#home" class="cds-back-link">← Home</a>
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <div class="cds-module-icon">📧</div>
-                    <div>
-                        <h1 class="cds-module-section-title">Phishing - Email Trappola</h1>
-                        <div style="background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">
-                            Livello Avanzato
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cds-module-section-content">
-                <div class="cds-definition">
-                    <h3>Definizione</h3>
-                    <p>Il phishing è la tecnica di social engineering più diffusa: email false che sembrano legittime per rubare credenziali, installare malware o ottenere informazioni sensibili. I cybercriminali creano messaggi identici a quelli di servizi reali (banche, social media, e-commerce) per ingannare le vittime.</p>
-                </div>
-
-                <div class="cds-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 30px;">
-                    <div class="cds-grid-item">
-                        <div class="cds-section">
-                            <h3>Come Funziona</h3>
-                            <ul class="cds-step-list">
-                                <li>I cybercriminali creano email identiche a quelle di servizi legittimi (banche, social, e-commerce)</li>
-                                <li>Inseriscono link che portano a siti web fake perfettamente identici agli originali</li>
-                                <li>Le vittime inseriscono username, password e dati personali sui siti falsi</li>
-                                <li>I dati rubati vengono utilizzati per accessi non autorizzati o venduti nel dark web</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="cds-grid-item">
-                        <div class="cds-section">
-                            <h3>Come Proteggersi</h3>
-                            <ul class="cds-prevention-list">
-                                <li>Verificare sempre il mittente contattando direttamente l'azienda tramite canali ufficiali</li>
-                                <li>Mai cliccare link sospetti - digitare manualmente l'URL nel browser</li>
-                                <li>Controllare sempre l'URL del sito (https, dominio corretto, certificato valido)</li>
-                                <li>Utilizzare l'autenticazione a due fattori su tutti gli account importanti</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cds-section">
-                    <h3>Esempi Reali</h3>
-                    <div class="cds-example">
-                        <h4>Phishing Bancario</h4>
-                        <p>Email che simula la tua banca e chiede di "verificare urgentemente" i dati del conto per problemi di sicurezza</p>
-                        <div class="cds-red-flags">
-                            <h5>Segnali di Allarme:</h5>
-                            <ul>
-                                <li>Urgenza eccessiva e minacce</li>
-                                <li>Link sospetti che non portano al sito ufficiale</li>
-                                <li>Richiesta di password complete o PIN</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cds-section">
-                    <h3>Caso Studio: Email Falsa dal Dirigente</h3>
-                    <div class="cds-example" style="background: #fff3cd; border-color: #ffeaa7;">
-                        <h4 style="color: #856404;">Scenario:</h4>
-                        <p style="font-style: italic; color: #856404;">
-                            "Ricevi un'email che sembra provenire dal dirigente scolastico che chiede urgentemente l'elenco completo degli studenti con dati personali per 'un controllo straordinario del Ministero'."
-                        </p>
-                        
-                        <div class="cds-red-flags">
-                            <h5>Segnali di Allarme:</h5>
-                            <ul>
-                                <li>Richiesta urgente inusuale</li>
-                                <li>Dati sensibili GDPR richiesti via email</li>
-                                <li>Linguaggio diverso dal solito</li>
-                            </ul>
-                        </div>
-                        
-                        <div style="background: #e8f5e8; padding: 12px; border-radius: 5px; margin-top: 10px;">
-                            <h5 style="color: #2e7d32; margin: 0 0 5px 0;">Azione Corretta:</h5>
-                            <p style="color: #2e7d32; margin: 0;">Contattare IMMEDIATAMENTE il dirigente tramite telefono per verificare la richiesta.</p>
-                        </div>
-                        
-                        <div style="background: #f3e5f5; padding: 12px; border-radius: 5px; margin-top: 10px;">
-                            <h5 style="color: #7b1fa2; margin: 0 0 5px 0;">Lezione Appresa:</h5>
-                            <p style="color: #7b1fa2; margin: 0;">I dati degli studenti sono protetti dal GDPR. Mai inviarli via email senza verifica diretta.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cds-section">
-                    <h3>Strumenti Utili Anti-Phishing</h3>
-                    <div class="cds-tools-grid">
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Google Phishing Quiz</h4>
-                                <a href="https://phishingquiz.withgoogle.com/" target="_blank" class="cds-tool-link">Prova Quiz ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Quiz interattivo per imparare a riconoscere le email di phishing attraverso esempi reali e feedback immediato.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">VirusTotal URL Scanner</h4>
-                                <a href="https://www.virustotal.com/" target="_blank" class="cds-tool-link">Scansiona ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Analizza URL sospetti con oltre 70 motori antivirus e servizi di sicurezza per verificare se sono malevoli.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">PhishTank</h4>
-                                <a href="https://www.phishtank.com/" target="_blank" class="cds-tool-link">Verifica ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Database collaborativo di siti di phishing verificati dalla community. Inserisci un URL per verificare se è segnalato.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Trend Micro Site Safety</h4>
-                                <a href="https://global.sitesafety.trendmicro.com/" target="_blank" class="cds-tool-link">Controlla ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Controlla la reputazione di siti web per verificare se sono sicuri o se contengono malware/phishing.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Microsoft Report Message</h4>
-                                <a href="https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/enable-the-report-message-add-in" target="_blank" class="cds-tool-link">Installa ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Add-in per Outlook che permette di segnalare facilmente email sospette direttamente a Microsoft.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Postale.it Anti-Phishing</h4>
-                                <a href="https://www.posteitaliane.it/it/sicurezza.html" target="_blank" class="cds-tool-link">Leggi Guida ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Guida ufficiale di Poste Italiane per riconoscere email di phishing che imitano servizi postali italiani.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODULO PASSWORD -->
-        <div id="password" class="cds-module-section">
-            <div class="cds-module-section-header cds-password">
-                <a href="#home" class="cds-back-link">← Home</a>
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <div class="cds-module-icon">🔐</div>
-                    <div>
-                        <h1 class="cds-module-section-title">Password & Autenticazione</h1>
-                        <div style="background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">
-                            Livello Avanzato
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cds-module-section-content">
-                <div class="cds-definition">
-                    <h3>Definizione</h3>
-                    <p>La gestione sicura delle password e l'autenticazione a più fattori sono la prima linea di difesa contro gli accessi non autorizzati ai nostri account digitali. Password deboli possono essere violate in pochi secondi.</p>
-                </div>
-
-                <div class="cds-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 30px;">
-                    <div class="cds-grid-item">
-                        <div class="cds-section">
-                            <h3>Come Funziona</h3>
-                            <ul class="cds-step-list">
-                                <li>Le password deboli possono essere craccate in pochi secondi</li>
-                                <li>I cybercriminali usano dizionari di password comuni</li>
-                                <li>L'autenticazione a due fattori aggiunge un secondo livello</li>
-                                <li>I password manager generano password uniche per ogni servizio</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="cds-grid-item">
-                        <div class="cds-section">
-                            <h3>Come Proteggersi</h3>
-                            <ul class="cds-prevention-list">
-                                <li>Utilizzare password lunghe (minimo 12 caratteri) con mix di caratteri</li>
-                                <li>Password uniche per ogni servizio - mai riutilizzare</li>
-                                <li>Attivare l'autenticazione a due fattori ovunque possibile</li>
-                                <li>Utilizzare un password manager affidabile</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cds-section">
-                    <h3>Esempi di Password Vulnerabili</h3>
-                    <div class="cds-example">
-                        <h4>Password Comuni da Evitare</h4>
-                        <p>Password come "123456", "password", "admin" o date di nascita sono craccabili istantaneamente</p>
-                        <div class="cds-red-flags">
-                            <h5>Segnali di Allarme:</h5>
-                            <ul>
-                                <li>Password corte (meno di 8 caratteri)</li>
-                                <li>Parole del dizionario</li>
-                                <li>Informazioni personali (date, nomi)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cds-section">
-                    <h3>Strumenti per Password Sicure</h3>
-                    <div class="cds-tools-grid">
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Bitwarden</h4>
-                                <a href="https://bitwarden.com/" target="_blank" class="cds-tool-link">Scarica ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Password manager gratuito e open source per generare, memorizzare e sincronizzare password sicure su tutti i dispositivi.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">1Password</h4>
-                                <a href="https://1password.com/" target="_blank" class="cds-tool-link">Prova Gratis ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Password manager premium con funzioni avanzate, condivisione sicura e monitoraggio delle violazioni dati.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Google Authenticator</h4>
-                                <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" class="cds-tool-link">Installa ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">App gratuita per l'autenticazione a due fattori che genera codici temporanei per proteggere i tuoi account.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Authy</h4>
-                                <a href="https://authy.com/" target="_blank" class="cds-tool-link">Scarica ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Alternativa avanzata a Google Authenticator con backup crittografato e sincronizzazione multi-dispositivo.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Have I Been Pwned</h4>
-                                <a href="https://haveibeenpwned.com/" target="_blank" class="cds-tool-link">Controlla ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Verifica se la tua email è stata coinvolta in violazioni di dati e se le tue password sono compromesse.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Password Strength Tester</h4>
-                                <a href="https://www.security.org/how-secure-is-my-password/" target="_blank" class="cds-tool-link">Testa ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Strumento per testare la forza delle tue password e stimare il tempo necessario per cracciarle.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODULO SOCIAL ENGINEERING -->
-        <div id="social" class="cds-module-section">
-            <div class="cds-module-section-header cds-social">
-                <a href="#home" class="cds-back-link">← Home</a>
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <div class="cds-module-icon">🎭</div>
-                    <div>
-                        <h1 class="cds-module-section-title">Social Engineering</h1>
-                        <div style="background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">
-                            Livello Avanzato
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cds-module-section-content">
-                <div class="cds-definition">
-                    <h3>Definizione</h3>
-                    <p>Il social engineering è l'arte di manipolare psicologicamente le persone per farle compiere azioni o rivelare informazioni confidenziali, aggirando i sistemi di sicurezza tecnici attraverso l'inganno umano.</p>
-                </div>
-
-                <div class="cds-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 30px;">
-                    <div class="cds-grid-item">
-                        <div class="cds-section">
-                            <h3>Come Funziona</h3>
-                            <ul class="cds-step-list">
-                                <li>Sfrutta i bias cognitivi umani: fiducia, autorità, urgenza</li>
-                                <li>Raccoglie informazioni tramite social media</li>
-                                <li>Crea scenari credibili per richieste inusuali</li>
-                                <li>Utilizza pressione temporale per impedire il pensiero critico</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="cds-grid-item">
-                        <div class="cds-section">
-                            <h3>Come Proteggersi</h3>
-                            <ul class="cds-prevention-list">
-                                <li>Sviluppare pensiero critico e diffidenza sana</li>
-                                <li>Prendersi tempo per riflettere su richieste inusuali</li>
-                                <li>Verificare identità attraverso canali indipendenti</li>
-                                <li>Non condividere informazioni sensibili senza verifica</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cds-section">
-                    <h3>Esempio: Vishing (Voice Phishing)</h3>
-                    <div class="cds-example">
-                        <h4>Chiamate False dal Supporto Tecnico</h4>
-                        <p>Chiamate che fingono di essere supporto tecnico della scuola o di servizi IT per ottenere password</p>
-                        <div class="cds-red-flags">
-                            <h5>Segnali di Allarme:</h5>
-                            <ul>
-                                <li>Chiamate non sollecitate</li>
-                                <li>Richieste di password al telefono</li>
-                                <li>Pressione per azioni immediate</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cds-section">
-                    <h3>Risorse Anti-Social Engineering</h3>
-                    <div class="cds-tools-grid">
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Social Engineer Toolkit (SET)</h4>
-                                <a href="https://www.social-engineer.org/" target="_blank" class="cds-tool-link">Scopri ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Framework educativo per comprendere le tecniche di social engineering attraverso simulazioni controllate.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">KnowBe4 Security Awareness</h4>
-                                <a href="https://www.knowbe4.com/free-phishing-test" target="_blank" class="cds-tool-link">Test Gratuito ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Test gratuito di phishing per valutare la vulnerabilità del personale agli attacchi di social engineering.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">SANS Security Awareness</h4>
-                                <a href="https://www.sans.org/security-awareness-training/" target="_blank" class="cds-tool-link">Formazione ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Programmi di formazione professionale per sviluppare consapevolezza sui rischi di social engineering.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Privacy Settings Check</h4>
-                                <a href="https://privacycheckup.com/" target="_blank" class="cds-tool-link">Controlla ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Strumento per verificare e ottimizzare le impostazioni di privacy sui social media per ridurre l'esposizione.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Truecaller</h4>
-                                <a href="https://www.truecaller.com/" target="_blank" class="cds-tool-link">Installa ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">App per identificare chiamate sconosciute e bloccare spam/vishing, proteggendo dalle chiamate fraudolente.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Scammer.info</h4>
-                                <a href="https://scammer.info/" target="_blank" class="cds-tool-link">Forum ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Community che condivide informazioni sui più recenti attacchi di social engineering e truffe telefoniche.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODULO SICUREZZA CLASSE -->
-        <div id="classe" class="cds-module-section">
-            <div class="cds-module-section-header cds-classe">
-                <a href="#home" class="cds-back-link">← Home</a>
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <div class="cds-module-icon">🏫</div>
-                    <div>
-                        <h1 class="cds-module-section-title">Sicurezza in Classe Digitale</h1>
-                        <div style="background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">
-                            Livello Avanzato
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cds-module-section-content">
-                <div class="cds-definition">
-                    <h3>Definizione</h3>
-                    <p>La sicurezza in classe digitale comprende pratiche, policy e tecnologie per proteggere dati, garantire la privacy degli studenti e creare un ambiente di apprendimento sicuro nell'era digitale.</p>
-                </div>
-
-                <div class="cds-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 30px;">
-                    <div class="cds-grid-item">
-                        <div class="cds-section">
-                            <h3>Come Funziona</h3>
-                            <ul class="cds-step-list">
-                                <li>Policy chiare per uso dispositivi e piattaforme</li>
-                                <li>Protezione dati personali studenti secondo GDPR</li>
-                                <li>Gestione sicura videolezioni e e-learning</li>
-                                <li>Formazione continua di docenti e studenti</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="cds-grid-item">
-                        <div class="cds-section">
-                            <h3>Come Proteggersi</h3>
-                            <ul class="cds-prevention-list">
-                                <li>Creare e rispettare policy digitali chiare</li>
-                                <li>Utilizzare solo piattaforme approvate dalla scuola</li>
-                                <li>Formare tutti gli utenti sulle procedure di sicurezza</li>
-                                <li>Implementare controlli di accesso e monitoraggio</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cds-section">
-                    <h3>Esempio: BYOD (Bring Your Own Device)</h3>
-                    <div class="cds-example">
-                        <h4>Gestione Dispositivi Personali</h4>
-                        <p>Gestione sicura dei dispositivi personali utilizzati per scopi didattici</p>
-                        <div class="cds-red-flags">
-                            <h5>Segnali di Allarme:</h5>
-                            <ul>
-                                <li>Dispositivi non protetti da password</li>
-                                <li>App non autorizzate dalla scuola</li>
-                                <li>Condivisione non controllata di contenuti</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cds-section">
-                    <h3>Strumenti per la Sicurezza Scolastica</h3>
-                    <div class="cds-tools-grid">
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Google Workspace for Education</h4>
-                                <a href="https://edu.google.com/workspace-for-education/" target="_blank" class="cds-tool-link">Info ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Suite completa per l'istruzione con strumenti integrati di sicurezza, gestione utenti e conformità GDPR.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Microsoft 365 Education</h4>
-                                <a href="https://www.microsoft.com/it-it/education/products/office" target="_blank" class="cds-tool-link">Scopri ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Piattaforma educativa con controlli avanzati di sicurezza, gestione dispositivi e protezione dati studenti.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Securly Classroom</h4>
-                                <a href="https://www.securly.com/" target="_blank" class="cds-tool-link">Demo ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Soluzione per monitorare e gestire l'attività online degli studenti durante le lezioni digitali.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Garante Privacy Scuola</h4>
-                                <a href="https://www.garanteprivacy.it/scuola" target="_blank" class="cds-tool-link">Linee Guida ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Linee guida ufficiali del Garante della Privacy per la gestione dei dati nelle scuole italiane.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Common Sense Media</h4>
-                                <a href="https://www.commonsensemedia.org/educators" target="_blank" class="cds-tool-link">Risorse ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Risorse educative per insegnare cittadinanza digitale e uso sicuro della tecnologia agli studenti.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Qustodio</h4>
-                                <a href="https://www.qustodio.com/it/scuole/" target="_blank" class="cds-tool-link">Scuole ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Controllo parentale e gestione dispositivi per proteggere gli studenti online durante le attività scolastiche.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODULO FAKE NEWS -->
-        <div id="news" class="cds-module-section">
-            <div class="cds-module-section-header cds-news">
-                <a href="#home" class="cds-back-link">← Home</a>
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <div class="cds-module-icon">📰</div>
-                    <div>
-                        <h1 class="cds-module-section-title">Fake News & Disinformazione</h1>
-                        <div style="background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 15px; border-radius: 15px; font-size: 0.9em;">
-                            Livello Avanzato
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cds-module-section-content">
-                <div class="cds-definition">
-                    <h3>Definizione</h3>
-                    <p>Le fake news sono informazioni false o fuorvianti presentate come notizie reali, progettate per ingannare i lettori e influenzare opinioni, comportamenti o decisioni attraverso la manipolazione dell'informazione.</p>
-                </div>
-
-                <div class="cds-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 30px;">
-                    <div class="cds-grid-item">
-                        <div class="cds-section">
-                            <h3>Come Funziona</h3>
-                            <ul class="cds-step-list">
-                                <li>Sfruttano bias cognitivi e conferme preesistenti</li>
-                                <li>Si diffondono rapidamente via social media</li>
-                                <li>Utilizzano bot e account fake per amplificare</li>
-                                <li>Motivate da guadagni economici o influenza politica</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="cds-grid-item">
-                        <div class="cds-section">
-                            <h3>Come Proteggersi</h3>
-                            <ul class="cds-prevention-list">
-                                <li>Verificare sempre le fonti e cercare conferme multiple</li>
-                                <li>Controllare data di pubblicazione e contesto</li>
-                                <li>Sviluppare alfabetizzazione mediatica critica</li>
-                                <li>Pensare prima di condividere contenuti</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cds-section">
-                    <h3>Esempio: Disinformazione Sanitaria</h3>
-                    <div class="cds-example">
-                        <h4>False Informazioni Mediche</h4>
-                        <p>False informazioni su trattamenti medici, vaccini o malattie diffuse per creare confusione</p>
-                        <div class="cds-red-flags">
-                            <h5>Segnali di Allarme:</h5>
-                            <ul>
-                                <li>Fonti non accreditate scientificamente</li>
-                                <li>Linguaggio emotivo estremo</li>
-                                <li>Promesse di cure miracolose</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cds-section">
-                    <h3>Strumenti Anti-Disinformazione</h3>
-                    <div class="cds-tools-grid">
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Bufale.net</h4>
-                                <a href="https://www.bufale.net/" target="_blank" class="cds-tool-link">Verifica ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Sito italiano di debunking e fact-checking per verificare notizie sospette e bufale che circolano online.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Factcheck.org</h4>
-                                <a href="https://www.factcheck.org/" target="_blank" class="cds-tool-link">Controlla ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Servizio di fact-checking indipendente che verifica dichiarazioni politiche e notizie controverse.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Snopes</h4>
-                                <a href="https://www.snopes.com/" target="_blank" class="cds-tool-link">Ricerca ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Uno dei più antichi siti di fact-checking, specializzato nel verificare leggende urbane e notizie false.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">TinEye Reverse Image</h4>
-                                <a href="https://tineye.com/" target="_blank" class="cds-tool-link">Cerca ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Motore di ricerca inversa per immagini per verificare se foto sono state riutilizzate in contesti falsi.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Media Bias/Fact Check</h4>
-                                <a href="https://mediabiasfactcheck.com/" target="_blank" class="cds-tool-link">Analizza ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Database che valuta l'affidabilità e il bias politico delle fonti di informazione online.</p>
-                        </div>
-                        
-                        <div class="cds-tool-item">
-                            <div class="cds-tool-header">
-                                <h4 class="cds-tool-title">Open Fact-Checking</h4>
-                                <a href="https://www.poynter.org/ifcn/" target="_blank" class="cds-tool-link">Network ↗</a>
-                            </div>
-                            <p class="cds-tool-desc">Rete internazionale di organizzazioni di fact-checking che seguono standard etici verificati.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="cds-card">
-            <h3 class="cds-text-center cds-mb-3" style="font-size: 1.8em; font-weight: bold; margin: 0 0 30px 0;">
-                Un Approccio 360° alla Sicurezza Digitale
-            </h3>
-            <div class="cds-grid cds-grid-3">
-                <div class="cds-grid-item">
-                    <h4 style="color: #9c27b0; font-weight: bold; margin-bottom: 15px;">Per i Docenti</h4>
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Formazione completa certificata</li>
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Casi studio scolastici reali</li>
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Materiali ready-to-use</li>
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Protocolli di emergenza</li>
-                    </ul>
-                </div>
-                <div class="cds-grid-item">
-                    <h4 style="color: #2196f3; font-weight: bold; margin-bottom: 15px;">Per gli Studenti</h4>
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Apprendimento gamificato</li>
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Pensiero critico digitale</li>
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Cultura della sicurezza</li>
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Competenze 21° secolo</li>
-                    </ul>
-                </div>
-                <div class="cds-grid-item">
-                    <h4 style="color: #4caf50; font-weight: bold; margin-bottom: 15px;">Per la Scuola</h4>
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Conformità GDPR garantita</li>
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Zero rischi cyber</li>
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Formazione continua</li>
-                        <li style="padding: 5px 0; font-size: 0.9em; color: #666;">• Risposta emergenze</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Copyright -->
-        <div style="text-align: center; padding: 20px; color: #666; font-size: 0.9em;">
-            © 2024 IIS Mendel - Villa Cortese | Progetto "Buone pratiche" PNRR "Scuola Futura"
-        </div>
+    <!-- Pulsante apertura a tutto schermo (link GitHub Pages del progetto) -->
+    <div class="cta-wrap">
+      <a class="cta" href="https://massicrespi.github.io/Cybersicurezza_IIS-MENDEL/" target="_blank" rel="noopener">
+        Apri la webapp a tutto schermo
+      </a>
     </div>
+
+    <!-- Header -->
+    <div class="cds-header">
+      <h1>Cittadinanza Digitale Sicura</h1>
+      <p>Formazione per docenti e studenti: competenze, sicurezza, benessere e legalità online.</p>
+      <div class="cds-school-info">
+        <strong>IIS Mendel - Villa Cortese</strong> • Via Ferrazzi 15<br>
+        Progetto “Buone pratiche” PNRR “Scuola Futura”
+      </div>
+    </div>
+
+    <!-- Navigazione -->
+    <div class="cds-nav">
+      <a href="#home">Home</a>
+      <a href="#phishing">Phishing</a>
+      <a href="#password">Password</a>
+      <a href="#social">Social Engineering</a>
+      <a href="#cyberbullismo">Cyberbullismo</a>
+      <a href="#privacy">Normativa & Privacy</a>
+      <a href="#classe">Sicurezza Classe</a>
+      <a href="#news">Fake News</a>
+      <a href="#top">↑ Torna su</a>
+    </div>
+
+    <!-- HOME -->
+    <div id="home">
+      <div class="cds-card">
+        <h2 class="cds-text-center cds-mb-2" style="font-size:2rem;font-weight:800;margin:0 0 14px">Moduli di Formazione Digitale</h2>
+        <p class="cds-text-center cds-mb-3" style="font-size:1.05rem;color:#555;margin:0 0 22px">
+          Ogni modulo sviluppa competenze chiave per un uso consapevole, sicuro e responsabile del digitale.
+        </p>
+
+        <div class="cds-grid cds-grid-3">
+          <div class="cds-grid-item">
+            <a href="#phishing" class="cds-module">
+              <div class="cds-module-header cds-phishing">
+                <div class="cds-module-icon">📧</div>
+                <h3 class="cds-module-title">Phishing</h3>
+                <p class="cds-module-subtitle">Email trappola & protezioni</p>
+              </div>
+              <div class="cds-module-content">
+                <p class="cds-module-desc">Riconosci i segnali d’allarme, verifica i link e difenditi da furti di credenziali.</p>
+                <div class="cds-btn">Inizia Modulo</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="cds-grid-item">
+            <a href="#password" class="cds-module">
+              <div class="cds-module-header cds-password">
+                <div class="cds-module-icon">🔐</div>
+                <h3 class="cds-module-title">Password sicure</h3>
+                <p class="cds-module-subtitle">2FA & password manager</p>
+              </div>
+              <div class="cds-module-content">
+                <p class="cds-module-desc">Costruisci password robuste e usa l’autenticazione a più fattori ovunque.</p>
+                <div class="cds-btn">Inizia Modulo</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="cds-grid-item">
+            <a href="#social" class="cds-module">
+              <div class="cds-module-header cds-social">
+                <div class="cds-module-icon">🎭</div>
+                <h3 class="cds-module-title">Social engineering</h3>
+                <p class="cds-module-subtitle">Trucchi e manipolazioni</p>
+              </div>
+              <div class="cds-module-content">
+                <p class="cds-module-desc">Impara a dire “no” a pressioni, urgenze e richieste insolite.</p>
+                <div class="cds-btn">Inizia Modulo</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="cds-grid-item">
+            <a href="#cyberbullismo" class="cds-module">
+              <div class="cds-module-header cds-cyberbull">
+                <div class="cds-module-icon">💬</div>
+                <h3 class="cds-module-title">Cyberbullismo</h3>
+                <p class="cds-module-subtitle">Benessere & segnalazioni</p>
+              </div>
+              <div class="cds-module-content">
+                <p class="cds-module-desc">Riconosci, documenta e segnala. Percorsi di aiuto per studenti e famiglie.</p>
+                <div class="cds-btn">Inizia Modulo</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="cds-grid-item">
+            <a href="#privacy" class="cds-module">
+              <div class="cds-module-header cds-privacy">
+                <div class="cds-module-icon">🛡️</div>
+                <h3 class="cds-module-title">Normativa & Privacy</h3>
+                <p class="cds-module-subtitle">GDPR a scuola</p>
+              </div>
+              <div class="cds-module-content">
+                <p class="cds-module-desc">Dati personali, consenso, informative e buone prassi per la scuola.</p>
+                <div class="cds-btn">Inizia Modulo</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="cds-grid-item">
+            <a href="#news" class="cds-module">
+              <div class="cds-module-header cds-news">
+                <div class="cds-module-icon">📰</div>
+                <h3 class="cds-module-title">Fake news</h3>
+                <p class="cds-module-subtitle">Verifica delle fonti</p>
+              </div>
+              <div class="cds-module-content">
+                <p class="cds-module-desc">Sviluppa pensiero critico e tecniche di fact‑checking.</p>
+                <div class="cds-btn">Inizia Modulo</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="cds-grid-item">
+            <a href="#classe" class="cds-module">
+              <div class="cds-module-header cds-classe">
+                <div class="cds-module-icon">🏫</div>
+                <h3 class="cds-module-title">Sicurezza in classe</h3>
+                <p class="cds-module-subtitle">Policy & strumenti</p>
+              </div>
+              <div class="cds-module-content">
+                <p class="cds-module-desc">Procedure, piattaforme approvate e gestione dispositivi (BYOD).</p>
+                <div class="cds-btn">Inizia Modulo</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHISHING -->
+    <div id="phishing" class="cds-module-section">
+      <div class="cds-module-section-header cds-phishing">
+        <a class="cds-back-link" href="#home">← Home</a>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div class="cds-module-icon">📧</div>
+          <div>
+            <h1 class="cds-module-section-title">Phishing – Email trappola</h1>
+            <div style="background:rgba(255,255,255,.25);display:inline-block;padding:5px 12px;border-radius:12px;font-size:.9em">Livello Avanzato</div>
+          </div>
+        </div>
+      </div>
+      <div class="cds-module-section-content">
+        <div class="cds-definition">
+          <h3>Definizione</h3>
+          <p>Email o messaggi che imitano servizi reali per rubare credenziali o installare malware.</p>
+        </div>
+
+        <div class="cds-grid" style="grid-template-columns:1fr 1fr;margin-bottom:14px">
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Come funziona</h3>
+              <ul class="cds-step-list">
+                <li>Creazione di email identiche a quelle di banche, social, e‑commerce.</li>
+                <li>Link a siti falsi perfettamente somiglianti agli originali.</li>
+                <li>Inserimento di credenziali su pagine fake.</li>
+                <li>Uso dei dati per accessi non autorizzati o rivendita.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Come proteggersi</h3>
+              <ul class="cds-prevention-list">
+                <li>Verifica il mittente tramite canali ufficiali.</li>
+                <li>Non cliccare: digita l’URL a mano quando hai dubbi.</li>
+                <li>Controlla HTTPS e dominio corretto.</li>
+                <li>Attiva la 2FA su tutti gli account importanti.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="cds-section">
+          <h3>Esempi reali</h3>
+          <div class="cds-example">
+            <h4>Phishing bancario</h4>
+            <p>“Verifica urgente dei dati o blocco conto”.</p>
+            <div class="cds-red-flags">
+              <h5>Segnali di allarme</h5>
+              <ul>
+                <li>Urgenza e minacce.</li>
+                <li>Link che non portano al dominio ufficiale.</li>
+                <li>Richiesta di password complete o PIN.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="cds-section">
+          <h3>Caso scuola: email dal dirigente</h3>
+          <div class="cds-example" style="background:#fff8e1;border-color:#ffe599">
+            <p><em>Richiesta urgente dell’elenco studenti con dati personali.</em></p>
+            <div class="cds-red-flags"><h5>Allarme</h5><ul><li>Richiesta inconsueta e urgente.</li><li>Dati sensibili via email.</li><li>Tono linguistico insolito.</li></ul></div>
+            <div style="background:#e8f5e8;border-radius:8px;margin-top:8px;padding:10px"><strong>Azione corretta:</strong> verificare telefonicamente.</div>
+          </div>
+        </div>
+
+        <div class="cds-section">
+          <h3>Strumenti utili</h3>
+          <div class="cds-tools-grid">
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Google Phishing Quiz</h4><a class="cds-tool-link" target="_blank" href="https://phishingquiz.withgoogle.com/">Prova ↗</a></div><p class="cds-tool-desc">Esercitazioni con feedback immediato.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">VirusTotal</h4><a class="cds-tool-link" target="_blank" href="https://www.virustotal.com/">Scansiona ↗</a></div><p class="cds-tool-desc">Analizza URL sospetti.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">PhishTank</h4><a class="cds-tool-link" target="_blank" href="https://www.phishtank.com/">Verifica ↗</a></div><p class="cds-tool-desc">Database di phishing noti.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Trend Micro Site Safety</h4><a class="cds-tool-link" target="_blank" href="https://global.sitesafety.trendmicro.com/">Controlla ↗</a></div><p class="cds-tool-desc">Reputazione dei siti.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSWORD -->
+    <div id="password" class="cds-module-section">
+      <div class="cds-module-section-header cds-password">
+        <a class="cds-back-link" href="#home">← Home</a>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div class="cds-module-icon">🔐</div>
+          <div>
+            <h1 class="cds-module-section-title">Password & Autenticazione</h1>
+            <div style="background:rgba(255,255,255,.25);display:inline-block;padding:5px 12px;border-radius:12px;font-size:.9em">Livello Avanzato</div>
+          </div>
+        </div>
+      </div>
+      <div class="cds-module-section-content">
+        <div class="cds-definition">
+          <h3>Definizione</h3>
+          <p>Password robuste + 2FA = prima difesa contro accessi non autorizzati.</p>
+        </div>
+
+        <div class="cds-grid" style="grid-template-columns:1fr 1fr;margin-bottom:14px">
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Come funziona</h3>
+              <ul class="cds-step-list">
+                <li>Le password deboli si craccano in secondi.</li>
+                <li>I criminali usano dizionari e credenziali rubate.</li>
+                <li>La 2FA blocca l’accesso anche con password nota.</li>
+                <li>I password manager generano e custodiscono chiavi uniche.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Protezione pratica</h3>
+              <ul class="cds-prevention-list">
+                <li>Almeno 12–14 caratteri con mix di simboli.</li>
+                <li>Una password diversa per ogni servizio.</li>
+                <li>2FA (app OTP o chiavi hardware) sempre attiva.</li>
+                <li>Manager affidabili per archiviazione sicura.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="cds-section">
+          <h3>Strumenti consigliati</h3>
+          <div class="cds-tools-grid">
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Bitwarden</h4><a class="cds-tool-link" target="_blank" href="https://bitwarden.com/">Scarica ↗</a></div><p class="cds-tool-desc">Password manager open‑source.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">1Password</h4><a class="cds-tool-link" target="_blank" href="https://1password.com/">Prova ↗</a></div><p class="cds-tool-desc">Opzione premium con funzioni team/famiglia.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Authenticator (Google/Authy)</h4><a class="cds-tool-link" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Android ↗</a></div><p class="cds-tool-desc">App OTP per 2FA.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Have I Been Pwned</h4><a class="cds-tool-link" target="_blank" href="https://haveibeenpwned.com/">Controlla ↗</a></div><p class="cds-tool-desc">Verifica violazioni note.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL ENGINEERING -->
+    <div id="social" class="cds-module-section">
+      <div class="cds-module-section-header cds-social">
+        <a class="cds-back-link" href="#home">← Home</a>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div class="cds-module-icon">🎭</div>
+          <div>
+            <h1 class="cds-module-section-title">Social engineering</h1>
+            <div style="background:rgba(255,255,255,.25);display:inline-block;padding:5px 12px;border-radius:12px;font-size:.9em">Livello Avanzato</div>
+          </div>
+        </div>
+      </div>
+      <div class="cds-module-section-content">
+        <div class="cds-definition">
+          <h3>Definizione</h3>
+          <p>Manipolazione psicologica per ottenere azioni o informazioni riservate.</p>
+        </div>
+
+        <div class="cds-grid" style="grid-template-columns:1fr 1fr;margin-bottom:14px">
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Come funziona</h3>
+              <ul class="cds-step-list">
+                <li>Autorità fittizia, urgenza, pressione sociale.</li>
+                <li>Raccolta info dai social per messaggi “credibili”.</li>
+                <li>Scenari ad hoc (vishing, smishing, shoulder surfing).</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Come proteggersi</h3>
+              <ul class="cds-prevention-list">
+                <li>Prenditi tempo: niente decisioni “subito”.</li>
+                <li>Verifica identità con canali indipendenti.</li>
+                <li>Non condividere dati sensibili senza doppio controllo.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="cds-section">
+          <h3>Risorse utili</h3>
+          <div class="cds-tools-grid">
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">KnowBe4 – Test phishing</h4><a class="cds-tool-link" target="_blank" href="https://www.knowbe4.com/free-phishing-test">Avvia ↗</a></div><p class="cds-tool-desc">Simulazioni formative.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">SANS – Security Awareness</h4><a class="cds-tool-link" target="_blank" href="https://www.sans.org/security-awareness-training/">Formazione ↗</a></div><p class="cds-tool-desc">Programmi per scuole e PA.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CYBERBULLISMO & BENESSERE DIGITALE (NUOVO) -->
+    <div id="cyberbullismo" class="cds-module-section">
+      <div class="cds-module-section-header cds-cyberbull">
+        <a class="cds-back-link" href="#home">← Home</a>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div class="cds-module-icon">💬</div>
+          <div>
+            <h1 class="cds-module-section-title">Cyberbullismo & Benessere Digitale</h1>
+            <div style="background:rgba(255,255,255,.25);display:inline-block;padding:5px 12px;border-radius:12px;font-size:.9em">Supporto e segnalazioni</div>
+          </div>
+        </div>
+      </div>
+      <div class="cds-module-section-content">
+        <div class="cds-definition">
+          <h3>Definizione</h3>
+          <p>Comportamenti aggressivi e ripetuti tramite canali digitali che colpiscono studenti o personale.</p>
+        </div>
+
+        <div class="cds-grid" style="grid-template-columns:1fr 1fr;margin-bottom:14px">
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Cosa fare subito</h3>
+              <ul class="cds-step-list">
+                <li>Non rispondere agli insulti; salva prove (screenshot, link, data/ora).</li>
+                <li>Blocca e segnala sui social.</li>
+                <li>Avvisa subito scuola e famiglia.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Canali di aiuto</h3>
+              <ul class="cds-prevention-list">
+                <li>Referente bullismo/cyberbullismo d’Istituto.</li>
+                <li>Sportello psicologico scolastico.</li>
+                <li>Forze dell’Ordine/Commissariato di P.S. online.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="cds-section">
+          <h3>Strumenti e risorse</h3>
+          <div class="cds-tools-grid">
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Commissariato di P.S. Online</h4><a class="cds-tool-link" target="_blank" href="https://www.commissariatodips.it/">Segnala ↗</a></div><p class="cds-tool-desc">Moduli e indicazioni per denunce/querela.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Telefono Azzurro</h4><a class="cds-tool-link" target="_blank" href="https://azzurro.it/">Aiuto ↗</a></div><p class="cds-tool-desc">Supporto a minori e famiglie.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Linee guida piattaforme</h4><a class="cds-tool-link" target="_blank" href="https://www.facebook.com/help/420576171311103">Meta ↗</a></div><p class="cds-tool-desc">Bloccare/Segnalare contenuti offensivi.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NORMATIVA & PRIVACY (NUOVO) -->
+    <div id="privacy" class="cds-module-section">
+      <div class="cds-module-section-header cds-privacy">
+        <a class="cds-back-link" href="#home">← Home</a>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div class="cds-module-icon">🛡️</div>
+          <div>
+            <h1 class="cds-module-section-title">Normativa & Privacy (GDPR a Scuola)</h1>
+            <div style="background:rgba(255,255,255,.25);display:inline-block;padding:5px 12px;border-radius:12px;font-size:.9em">Riferimenti e buone prassi</div>
+          </div>
+        </div>
+      </div>
+      <div class="cds-module-section-content">
+        <div class="cds-definition">
+          <h3>Punti chiave</h3>
+          <p>Trattamento dati studenti, consenso informato, registro trattamenti, DPIA, nomina incaricati, informative chiare.</p>
+        </div>
+
+        <div class="cds-grid" style="grid-template-columns:1fr 1fr;margin-bottom:14px">
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Checklist operativa per docenti</h3>
+              <ul class="cds-step-list">
+                <li>Usa solo piattaforme approvate dall’Istituto.</li>
+                <li>Condividi materiali con impostazioni privacy corrette.</li>
+                <li>Minimizza i dati personali nelle consegne/valutazioni.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Strumenti & riferimenti</h3>
+              <ul class="cds-prevention-list">
+                <li>Modelli di informativa e consenso aggiornati.</li>
+                <li>Valutazione d’impatto (DPIA) quando necessario.</li>
+                <li>Registro trattamenti a cura della scuola/DPO.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="cds-section">
+          <h3>Approfondimenti</h3>
+          <div class="cds-tools-grid">
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Garante Privacy – Scuola</h4><a class="cds-tool-link" target="_blank" href="https://www.garanteprivacy.it/scuola">Linee guida ↗</a></div><p class="cds-tool-desc">Documenti ufficiali per istituti scolastici.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">EDPB (Comitato europeo)</h4><a class="cds-tool-link" target="_blank" href="https://edpb.europa.eu/">Pareri & linee guida ↗</a></div><p class="cds-tool-desc">Interpretazioni GDPR a livello UE.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">AgID – Linee guida</h4><a class="cds-tool-link" target="_blank" href="https://www.agid.gov.it/">PA digitale ↗</a></div><p class="cds-tool-desc">Sicurezza e governance digitale nella PA.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SICUREZZA IN CLASSE -->
+    <div id="classe" class="cds-module-section">
+      <div class="cds-module-section-header cds-classe">
+        <a class="cds-back-link" href="#home">← Home</a>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div class="cds-module-icon">🏫</div>
+          <div>
+            <h1 class="cds-module-section-title">Sicurezza in classe digitale</h1>
+            <div style="background:rgba(255,255,255,.25);display:inline-block;padding:5px 12px;border-radius:12px;font-size:.9em">Policy & strumenti</div>
+          </div>
+        </div>
+      </div>
+      <div class="cds-module-section-content">
+        <div class="cds-definition">
+          <h3>Definizione</h3>
+          <p>Policy, piattaforme e buone prassi per ambienti didattici sicuri e conformi al GDPR.</p>
+        </div>
+
+        <div class="cds-grid" style="grid-template-columns:1fr 1fr;margin-bottom:14px">
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Come funziona</h3>
+              <ul class="cds-step-list">
+                <li>Policy chiare sull’uso dei dispositivi.</li>
+                <li>Protezione dei dati degli studenti.</li>
+                <li>Gestione sicura di videolezioni e LMS.</li>
+                <li>Formazione continua di docenti e studenti.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Come proteggersi</h3>
+              <ul class="cds-prevention-list">
+                <li>Piattaforme approvate dalla scuola.</li>
+                <li>Controlli di accesso e monitoraggio.</li>
+                <li>Procedure BYOD e filtri contenuti.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="cds-section">
+          <h3>Strumenti per la scuola</h3>
+          <div class="cds-tools-grid">
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Google Workspace for Education</h4><a class="cds-tool-link" target="_blank" href="https://edu.google.com/workspace-for-education/">Info ↗</a></div><p class="cds-tool-desc">Suite didattica con controlli di sicurezza.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Microsoft 365 Education</h4><a class="cds-tool-link" target="_blank" href="https://www.microsoft.com/it-it/education/products/office">Scopri ↗</a></div><p class="cds-tool-desc">Gestione dispositivi e protezione dati.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Garante Privacy – Scuola</h4><a class="cds-tool-link" target="_blank" href="https://www.garanteprivacy.it/scuola">Linee guida ↗</a></div><p class="cds-tool-desc">Riferimenti normativi ufficiali.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAKE NEWS -->
+    <div id="news" class="cds-module-section">
+      <div class="cds-module-section-header cds-news">
+        <a class="cds-back-link" href="#home">← Home</a>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div class="cds-module-icon">📰</div>
+          <div>
+            <h1 class="cds-module-section-title">Fake news & disinformazione</h1>
+            <div style="background:rgba(255,255,255,.25);display:inline-block;padding:5px 12px;border-radius:12px;font-size:.9em">Verifica e pensiero critico</div>
+          </div>
+        </div>
+      </div>
+      <div class="cds-module-section-content">
+        <div class="cds-definition">
+          <h3>Definizione</h3>
+          <p>Contenuti falsi o fuorvianti presentati come notizie per influenzare opinioni e comportamenti.</p>
+        </div>
+
+        <div class="cds-grid" style="grid-template-columns:1fr 1fr;margin-bottom:14px">
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Come funziona</h3>
+              <ul class="cds-step-list">
+                <li>Bias cognitivi e camere d’eco social.</li>
+                <li>Amplificazione tramite bot e fake account.</li>
+                <li>Obiettivi economici o politici.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cds-grid-item">
+            <div class="cds-section">
+              <h3>Come proteggersi</h3>
+              <ul class="cds-prevention-list">
+                <li>Verifica fonti con conferme multiple.</li>
+                <li>Controlla data, contesto e autore.</li>
+                <li>Usa strumenti di fact‑checking e reverse image.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="cds-section">
+          <h3>Strumenti anti‑disinformazione</h3>
+          <div class="cds-tools-grid">
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Bufale.net</h4><a class="cds-tool-link" target="_blank" href="https://www.bufale.net/">Verifica ↗</a></div><p class="cds-tool-desc">Debunking in italiano.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">FactCheck.org</h4><a class="cds-tool-link" target="_blank" href="https://www.factcheck.org/">Controlla ↗</a></div><p class="cds-tool-desc">Verifica dichiarazioni pubbliche.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">Snopes</h4><a class="cds-tool-link" target="_blank" href="https://www.snopes.com/">Ricerca ↗</a></div><p class="cds-tool-desc">Leggende urbane e bufale.</p></div>
+            <div class="cds-tool-item"><div class="cds-tool-header"><h4 class="cds-tool-title">TinEye (reverse image)</h4><a class="cds-tool-link" target="_blank" href="https://tineye.com/">Cerca ↗</a></div><p class="cds-tool-desc">Verifica riuso immagini.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER COMPETENZE -->
+    <div class="cds-card">
+      <h3 class="cds-text-center cds-mb-3" style="font-size:1.6rem;font-weight:800;margin:0 0 18px">
+        Un approccio a 360° alla sicurezza digitale
+      </h3>
+      <div class="cds-grid cds-grid-3">
+        <div class="cds-grid-item">
+          <h4 style="color:#9c27b0;margin:0 0 10px;font-weight:800">Per i Docenti</h4>
+          <ul style="list-style:none;margin:0;padding:0;color:#555">
+            <li>• Formazione certificata</li>
+            <li>• Casi studio scolastici</li>
+            <li>• Materiali ready‑to‑use</li>
+            <li>• Protocolli di emergenza</li>
+          </ul>
+        </div>
+        <div class="cds-grid-item">
+          <h4 style="color:#2196f3;margin:0 0 10px;font-weight:800">Per gli Studenti</h4>
+          <ul style="list-style:none;margin:0;padding:0;color:#555">
+            <li>• Apprendimento gamificato</li>
+            <li>• Pensiero critico digitale</li>
+            <li>• Cultura della sicurezza</li>
+            <li>• Competenze 21° secolo</li>
+          </ul>
+        </div>
+        <div class="cds-grid-item">
+          <h4 style="color:#4caf50;margin:0 0 10px;font-weight:800">Per la Scuola</h4>
+          <ul style="list-style:none;margin:0;padding:0;color:#555">
+            <li>• Conformità GDPR</li>
+            <li>• Riduzione rischi cyber</li>
+            <li>• Formazione continua</li>
+            <li>• Procedure BYOD</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div style="text-align:center;padding:18px;color:#666;font-size:.95em">
+      © 2025 IIS Mendel - Villa Cortese · Progetto “Buone pratiche” PNRR “Scuola Futura”
+    </div>
+  </div>
 </body>
 </html>
